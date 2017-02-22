@@ -1,6 +1,6 @@
 {
   "name": "WikiClassify",
-  "version": "0.0.2",
+  "version": "0.1",
   "manifest_version": 2,
   "description": "Highlight text based on classifications",
   "homepage_url": "http://wikiclassify.com",
@@ -27,6 +27,9 @@
       ],
       "css": [
         "src/inject/inject.css"
+      ],
+      "js": [
+        "src/bg/background.js"
       ]
     }
   ],
