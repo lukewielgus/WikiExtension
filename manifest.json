@@ -1,39 +1,50 @@
 {
-  "name": "WikiClassify",
+  "name": "test",
   "version": "0.1",
   "manifest_version": 2,
+
   "description": "Highlight text based on classifications",
+
   "homepage_url": "http://wikiclassify.com",
+
   "icons": {
     "16": "icons/icon16.png",
     "48": "icons/icon48.png",
     "128": "icons/icon128.png"
   },
+
   "default_locale": "en",
+
   "background": {
-    "page": "src/bg/background.html",
-    "persistent": true
+    "scripts": [
+      "js/background/background.js"
+    ]
   },
-  "options_page": "src/options/index.html",
-  "page_action": {
-    "default_icon": "icons/icon19.png",
-    "default_title": "page action demo",
-    "default_popup": "src/page_action/page_action.html"
+
+  "browser_action": {
+    "default_popup": "popup.html"
   },
+
+  "options_page": "options/options.html",
+
   "content_scripts": [
     {
       "matches": [
-        "https://www.google.com/*"
-      ],
-      "css": [
-        "src/inject/inject.css"
+        "<all_urls>"
       ],
       "js": [
-        "src/bg/background.js"
+        "js/background/background.js",
+        "js/content.js",
+        "js/popup/popup.js",
+        "options/options.js"
       ]
     }
   ],
+
   "permissions": [
-    "storage"
+    "background",
+    "tabs",
+    "storage",
+    "<all_urls>"
   ]
 }
