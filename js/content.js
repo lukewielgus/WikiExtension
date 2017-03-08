@@ -1,3 +1,5 @@
+highlight('yellow');
+
 function makeEditableAndHighlight(colour) {
     var range, sel = window.getSelection();
     if (sel.rangeCount && sel.getRangeAt) {
