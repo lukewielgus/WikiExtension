@@ -1,6 +1,6 @@
 {
-  "name": "test",
-  "version": "0.1",
+  "name": "WikiClassify",
+  "version": "0.2",
   "manifest_version": 2,
 
   "description": "Highlight text based on classifications",
@@ -22,7 +22,7 @@
   },
 
   "browser_action": {
-    "default_popup": "popup.html"
+    "default_icon": "icons/icon16.png"
   },
 
   "options_page": "options/options.html",
@@ -33,9 +33,9 @@
         "<all_urls>"
       ],
       "js": [
-        "js/background/background.js",
+        "js/background.js",
         "js/content.js",
-        "js/popup/popup.js",
+        "js/jquery.js",
         "options/options.js"
       ]
     }
