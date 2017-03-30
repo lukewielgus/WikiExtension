@@ -3,6 +3,8 @@
   "version": "0.3",
   "manifest_version": 2,
 
+  "web_accessible_resources": ["popup/popup_box.htm"],
+
   "description": "Highlight text based on classifications",
 
   "homepage_url": "http://wikiclassify.com",
@@ -28,17 +30,17 @@
   "options_page": "options/options.html",
 
   "content_scripts": [
+    
     {
-      "matches": [
-        "<all_urls>"
-      ],
-      "js": [
-        "js/background.js"
-        //"js/content.js"
-        //"js/jquery.js",
-        //"options/options.js"
-      ]
+      "matches": ["<all_urls>"],
+      "js": [ "js/background.js"]
+    },
+
+    {
+      "matches": ["https://*.wikipedia.org/*"],
+      "js": ["popup/popup.js"]
     }
+
   ],
 
   "permissions": [
