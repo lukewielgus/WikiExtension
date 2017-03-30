@@ -12,16 +12,16 @@ function process_url(url)
 {
 	var tablink = url;
 
-	//console.log(document)	
+	console.log(document)	
 
 	var iFrame = document.createElement("iframe");
 	iFrame.src = chrome.extension.getURL("popup/popup_box.htm");
 	iFrame.style = "border:1px solid grey;";
 
-	if (tablink=="https://www.wikipedia.org/")
+	if (tablink=="https://www.wikipedia.org/" || tablink=="https://www.wikipedia.org")
 	{
-		iFrame.width = (parseInt(document.body.clientWidth)-25).toString();
-		iFrame.height = "250";
+		iFrame.width = (parseInt(document.body.clientWidth)).toString();
+		iFrame.height = "120";
 		iFrame.align = "center";
 		document.body.insertBefore(iFrame, document.body.firstChild);
 		return;
