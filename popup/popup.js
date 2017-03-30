@@ -31,7 +31,7 @@ function process_url(url)
 		return;
 	}
 
-	iFrame.width = "500";
+	iFrame.width = "550";
 	iFrame.height = "300";
 	iFrame.align = "right";
 	iFrame.hspace = "100";

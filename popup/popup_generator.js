@@ -11,7 +11,11 @@ function jQueryMain () {
 			return;
 		}
 
-		$("body").append("<p>"+tablink+"</p>");
+		var article = tablink.split("/wiki/")[1];
+
+		var article_line = "Article: "+article;
+
+		$("body").append("<p>"+article_line+"</p>");
 	});
 
     //$("body").append ('<p>Added by jQuery</p>');
