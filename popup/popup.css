@@ -1,9 +1,19 @@
-body {
+body 
+{
     color:              black;
     background-color:   floralwhite;
 }
 
-p {
+p 
+{
 	font-size: 14px;
 
+}
+
+img
+{
+	display: block;
+	margin: auto;
+	width: 100px;
+	height: 100px;
 }
