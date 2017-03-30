@@ -33,10 +33,10 @@
         "<all_urls>"
       ],
       "js": [
-        "js/background.js",
-        "js/content.js",
-        "js/jquery.js",
-        "options/options.js"
+        "js/background.js"
+        //"js/content.js"
+        //"js/jquery.js",
+        //"options/options.js"
       ]
     }
   ],
