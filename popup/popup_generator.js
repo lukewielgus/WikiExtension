@@ -202,18 +202,18 @@ function jQueryMain () {
 
 		var daily_page_views_2015 = get_daily_views(article,2015);
 		var page_views_2015_pretty = String(daily_page_views_2015).split(".")[0];
-		var pageviews_2015_line = "<b>Views (2015)</b>&nbsp;&nbsp;&nbsp;&nbsp;"+page_views_2015_pretty+" / day";
+		var pageviews_2015_line = "<b>Views (2015)</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+page_views_2015_pretty+" / day";
 		$("body").append("<p>"+pageviews_2015_line+"</p>"); 
 
 		
 		var daily_page_views_2016 = get_daily_views(article,2016);
 		var page_views_2016_pretty = String(daily_page_views_2016).split(".")[0];
-		var pageviews_2016_line = "<b>Views (2016)</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+page_views_2016_pretty+" / day";
+		var pageviews_2016_line = "<b>Views (2016)</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+page_views_2016_pretty+" / day";
 		$("body").append("<p>"+pageviews_2016_line+"</p>"); 
 
 		var last_30_daily_views = get_daily_views(article,"last_30");
 		var page_views_30_pretty = String(last_30_daily_views).split(".")[0];
-		var page_views_30_line = "<b>Views (Last 30)</b>&nbsp;"+page_views_30_pretty+" / day";
+		var page_views_30_line = "<b>Views (Last 30)</b>&nbsp;&nbsp;"+page_views_30_pretty+" / day";
 		$("body").append("<p>"+page_views_30_line+"</p>");
 		
 
