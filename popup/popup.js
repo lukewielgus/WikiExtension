@@ -83,8 +83,8 @@ function process_url(url)
 	}
 
 	// if we get here, we know its an article page
-	//iFrame.width = "270";
-	iFrame.height = "400";
+	iFrame.width = "270";
+	iFrame.height = "350";
 	//iFrame.width = "1500";
 	//iFrame.height = "1500";
 	iFrame.align = "right";
