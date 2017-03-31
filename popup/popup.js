@@ -83,21 +83,72 @@ function process_url(url)
 	}
 
 	// if we get here, we know its an article page
-	iFrame.width = "270";
+	//iFrame.width = "270";
 	iFrame.height = "400";
 	//iFrame.width = "1500";
 	//iFrame.height = "1500";
 	iFrame.align = "right";
-	iFrame.hspace = "100";
+	//iFrame.hspace = "100";
 
+	/*
 	var content_handle = document.getElementById("content");
 	
 	//console.log(content_handle);
 
 	var insert_spot = content_handle.children[4];
 	content_handle.insertBefore(iFrame,insert_spot);
+	*/
+
+	var content_handle = document.getElementById("content");
+
+	var bodyContent = content_handle.children[4];
+	var mw_content_text	= bodyContent.children[3];
+	console.log(mw_content_text);
+
+	var insert_spot = -1;
+
+	for(var i=0; i<mw_content_text.children.length; i++)
+	{
+		var current = mw_content_text.children[i].className;
+		console.log(current);
+		if (current == "infobox vcard")
+		{
+			insert_spot = mw_content_text.children[i];
+			break;
+		}
+		if (current == "infobox vevent")
+		{
+			insert_spot = mw_content_text.children[i];
+			break;
+		}
+		console.log(current.tag);
+	}
+
+	//console.log(mw_content_text.children[0].className);
+	//console.log(mw_content_text.children[1].className);
+	//console.log(mw_content_text.children[2].className);
 
 
+	//var insert_spot = mw_content_text.children[2];
+	
+	var insert_parent = document.getElementById("mw-content-text");
+
+	if (insert_spot==-1)
+	{
+		var y = document.getElementsByTagName("p");
+		console.log(y[0]);
+		insert_spot = y[0];
+		//insert_parent = y.parentElement;
+		insert_parent.insertBefore(iFrame,insert_spot);
+		return;
+	}
+
+	else
+	{
+		insert_parent = insert_spot.parentElement;
+		insert_parent.insertBefore(iFrame,insert_spot);
+		return;
+	}
 }
 
 get_url(process_url);
