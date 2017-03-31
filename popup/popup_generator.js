@@ -17,7 +17,7 @@ function jQueryMain () {
 
 		// get the article name
 		var article = tablink.split("/wiki/")[1];
-		var article_with_spaces = article.replace("_"," ");
+		var article_with_spaces = article.replace(/_/g," ");
 
 		var article_line = "<b>Article</b>  "+article_with_spaces;
 
