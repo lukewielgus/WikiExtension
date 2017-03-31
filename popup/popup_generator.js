@@ -67,7 +67,7 @@ function get_daily_views(article_name,year)
 	else
 	{
 		var start_date = String(year)+"0101";
-		var end_date = String(year+1)+"1231";
+		var end_date = String(year)+"1231";
 		num_days = 365;
 	}
 
