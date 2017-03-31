@@ -12,12 +12,18 @@ function jQueryMain () {
 			return;
 		}
 
+		$("body").append("<hr>");
+		$("body").append("<div class=\"bg-text\">Information</div>");
+
 		// get the article name
 		var article = tablink.split("/wiki/")[1];
-		var article_line = "Article: "+article;
+		var article_with_spaces = article.replace("_"," ");
+
+		var article_line = "<b>Article</b>  "+article_with_spaces;
 
 		// add the article title
 		$("body").append("<p>"+article_line+"</p>");
+
 
 		// here is where we would make calls to server to get article details...
 		// quality = server.get_quality(article)

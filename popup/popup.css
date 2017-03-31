@@ -6,8 +6,29 @@ body
 
 p 
 {
-	font-size: 14px;
+	font-size: 12px;
 
+}
+
+h1
+{
+	text-align: center;
+}
+
+h1 span
+{
+	background-color: aliceblue;
+}
+
+h2
+{
+	text-align: center;
+
+}
+
+h2 span
+{
+	background-color: aliceblue;
 }
 
 img
@@ -17,3 +38,19 @@ img
 	width: 100px;
 	height: 100px;
 }
+
+.bg-text {
+    background-color: lavender;
+    overflow: hidden;
+    padding: 8px 8px 8px 8px;
+    position: center;
+    font-weight: bold;
+    font-size: 14px;
+    text-align: center;
+}
+
+
+
+
+
+

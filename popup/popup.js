@@ -42,7 +42,7 @@ function process_url(url)
 	}
 
 	// if we get here, we know its an article page
-	iFrame.width = "550";
+	iFrame.width = "400";
 	iFrame.height = "300";
 	iFrame.align = "right";
 	iFrame.hspace = "100";
