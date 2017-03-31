@@ -35,8 +35,8 @@ function process_url(url)
 		return;
 	}
 
-	// if this is a talk page, skip
-	if (tablink.indexOf("Talk:")!=-1)
+	// if this is not an article page, skip
+	if (tablink.split(".org")[1].indexOf(":")!=-1)
 	{
 		return;
 	}
