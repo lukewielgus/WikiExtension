@@ -24,6 +24,9 @@ function jQueryMain () {
 		// add the article title
 		$("body").append("<p>"+article_line+"</p>");
 
+		var quality_line = "<b>Quality</b> the best article on Wikipedia";
+		$("body").append("<p>"+quality_line+"</p>");
+
 
 		// here is where we would make calls to server to get article details...
 		// quality = server.get_quality(article)
