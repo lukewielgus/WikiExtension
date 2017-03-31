@@ -1,7 +1,7 @@
 body 
 {
     color:              black;
-    background-color:   whitesmoke;
+    background-color:   #f8f9fa;
 }
 
 p 
@@ -37,6 +37,16 @@ img
 	margin: auto;
 	width: 100px;
 	height: 100px;
+}
+
+.bg-text_lite {
+    background-color: #efefef;
+    overflow: hidden;
+    padding: 8px 8px 8px 8px;
+    position: center;
+    font-weight: bold;
+    font-size: 14px;
+    text-align: center;
 }
 
 .bg-text {
