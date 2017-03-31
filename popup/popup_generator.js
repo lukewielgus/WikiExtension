@@ -193,7 +193,7 @@ function jQueryMain () {
 		// add the article title
 		$("body").append("<p>"+article_line+"</p>");
 
-		var quality_line = "<b>Quality</b> the best article on Wikipedia";
+		var quality_line = "<b>Quality</b> [article quality here]";
 		$("body").append("<p>"+quality_line+"</p>");
 
 		//$("body").append("<hr>");
