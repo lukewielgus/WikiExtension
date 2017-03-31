@@ -134,6 +134,12 @@ function process_url(url)
 			break;
 		}
 
+		if (current == "thumb tright")
+		{
+			insert_spot = mw_content_text.children[i];
+			break;
+		}
+
 		console.log(current.tag);
 	}
 
