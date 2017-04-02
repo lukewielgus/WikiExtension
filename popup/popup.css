@@ -1,13 +1,12 @@
-body 
+body
 {
     color:              black;
     background-color:   #f8f9fa;
 }
 
-p 
+p
 {
 	font-size: 12px;
-
 }
 
 h1
@@ -23,7 +22,6 @@ h1 span
 h2
 {
 	text-align: center;
-
 }
 
 h2 span
@@ -35,8 +33,8 @@ img
 {
 	display: block;
 	margin: auto;
-	width: 100px;
-	height: 100px;
+	width: 80px;
+	height: 80px;
 }
 
 .bg-text_lite {
@@ -58,9 +56,3 @@ img
     font-size: 12px;
     text-align: center;
 }
-
-
-
-
-
-
