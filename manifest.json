@@ -1,6 +1,6 @@
 {
   "name": "WikiClassify",
-  "version": "0.3",
+  "version": "0.4",
   "manifest_version": 2,
 
   "web_accessible_resources": ["popup/popup_box.htm"],
@@ -18,9 +18,8 @@
   "default_locale": "en",
 
   "background": {
-    "scripts": [
-      "js/background.js"
-    ]
+    "scripts": ["js/background.js"],
+    "persistent": false
   },
 
   "browser_action": {
@@ -30,12 +29,13 @@
   "options_page": "options/options.html",
 
   "content_scripts": [
-
     {
       "matches": ["https://*.wikipedia.org/*"],
-      "js": ["popup/popup.js"]
+      "js": [
+        "popup/popup.js",
+        "options/options.js"
+      ]
     }
-
   ],
 
   "permissions": [

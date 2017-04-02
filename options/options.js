@@ -1,10 +1,10 @@
-// Saves options to chrome.storage
+// Saves options to chrome.storage.sync.
 function save_options() {
-  var option = document.getElementById('optionsBox').value;
-  var check = document.getElementById('check').checked;
+  var color = document.getElementById('color').value;
+  //var likesColor = document.getElementById('like').checked;
   chrome.storage.sync.set({
-    pickedOption: option,
-    checkBox: check
+    favoriteColor: color//,
+    //likesColor: likesColor
   }, function() {
     // Update status to let user know options were saved.
     var status = document.getElementById('status');
@@ -20,11 +20,11 @@ function save_options() {
 function restore_options() {
   // Use default value color = 'red' and likesColor = true.
   chrome.storage.sync.get({
-    pickedOption: '1',
-    checkBox: false
+    favoriteColor: 'yellow',
+    //likesColor: true
   }, function(items) {
-    document.getElementById('optionsBox').value = items.favoriteColor;
-    document.getElementById('check').checked = items.likesColor;
+    document.getElementById('color').value = items.favoriteColor;
+    //document.getElementById('like').checked = items.likesColor;
   });
 }
 document.addEventListener('DOMContentLoaded', restore_options);
