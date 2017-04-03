@@ -32,11 +32,10 @@ h2 span
 img
 {
 	display: block;
-    margin-top: 0px;
-    margin-left:105px;
-    margin-bottom:10px;
-	width: 40px;
-	height: 40px;
+  margin: 0 auto;
+  margin-bottom: 5px;
+	width: 60px;
+	height: 60px;
 }
 
 .bg-text_lite {

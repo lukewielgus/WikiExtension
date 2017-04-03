@@ -30,7 +30,7 @@ function get_daily_views(article_name,year)
 	var data = get_pageviews(article_name,"monthly",start_date,end_date);
 
 	var obj = JSON.parse(data);
-	
+
 	var total = 0;
 	for (var i=0; i<obj.items.length; i++)
 	{
@@ -44,7 +44,7 @@ function get_daily_views(article_name,year)
 // Provided a referenced to a callback function, finds the URL of the
 // current tab and routes it to the callback function.
 function get_url(callback)
-{	
+{
 	chrome.runtime.sendMessage({func: "get_url"},function(response)
 	{
 		callback(String(response.data));
@@ -55,7 +55,7 @@ function get_url(callback)
 // display the iFrame structure on the current webpage.
 function process_url(url)
 {
-	console.log(document) // write out for debugging (see chrome console)	
+	console.log(document) // write out for debugging (see chrome console)
 
 	// create iFrame element to insert later
 	var iFrame = document.createElement("iframe");
@@ -66,7 +66,7 @@ function process_url(url)
 	if (url=="https://www.wikipedia.org/" || url=="https://www.wikipedia.org")
 	{
 		iFrame.width = (parseInt(document.body.clientWidth)).toString();
-		iFrame.height = "120";
+		iFrame.height = "100";
 		iFrame.align = "center";
 		document.body.insertBefore(iFrame, document.body.firstChild);
 		return;
@@ -85,7 +85,8 @@ function process_url(url)
 	}
 
 	// if we get here, we know its an article page
-	iFrame.width = "270";
+	// width is set to match the width of the existing box on the article page
+	iFrame.width = "280";
 	iFrame.height = "400";
 	iFrame.align = "right";
 
@@ -151,7 +152,7 @@ function process_url(url)
 
 		console.log(current.tag);
 	}
-	
+
 	var insert_parent = document.getElementById("mw-content-text");
 
 	if (insert_spot==-1)
@@ -175,6 +176,3 @@ function process_url(url)
 // after get_url has called callback. The value provided to callback
 // by get_url will be routed as the input to process_url
 get_url(process_url);
-
-
-
