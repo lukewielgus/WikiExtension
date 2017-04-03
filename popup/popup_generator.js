@@ -142,16 +142,15 @@ function make_view_plot(article_name)
 
 		margin:
 		{
-			t: 0,
+			t: 15,
 			r: 0,
-			l: 25,
-			b: 20
+			l: 35,
+			b: 15
 		}
 
 	};
 
-	$("body").append("<div id=\"plot\" style=\"width:240px;height:175px;\"></div>")
-
+	$("body").append("<div id=\"plot\" style=\"width:240px;height:100px;\"></div>")
 	var plot_spot = document.getElementById('plot');
 
 	var view_trace = {
@@ -203,14 +202,17 @@ function jQueryMain () {
 		var quality_line = "<b>Quality</b> [article quality here]";
 		$("body").append("<p>"+quality_line+"</p>");
 
-		$("body").append("<div class=\"bg-text\">Statistics</div>");
+		$("body").append("<div class=\"bg-text\">Popularity</div>");
+
+		make_view_plot(article);
+
+		$("body").append("<hr>");
 
 		var daily_page_views_2015 = get_daily_views(article,2015);
 		var page_views_2015_pretty = String(daily_page_views_2015).split(".")[0];
 		var pageviews_2015_line = "<b>Views (2015)</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+page_views_2015_pretty+" / day";
 		$("body").append("<p>"+pageviews_2015_line+"</p>"); 
 
-		
 		var daily_page_views_2016 = get_daily_views(article,2016);
 		var page_views_2016_pretty = String(daily_page_views_2016).split(".")[0];
 		var pageviews_2016_line = "<b>Views (2016)</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+page_views_2016_pretty+" / day";
@@ -221,7 +223,7 @@ function jQueryMain () {
 		var page_views_30_line = "<b>Views (Last 30)</b>&nbsp;&nbsp;"+page_views_30_pretty+" / day";
 		$("body").append("<p>"+page_views_30_line+"</p>");
 		
-		make_view_plot(article);
+		//make_view_plot(article);
 
 		// here is where we would make calls to server to get article details...
 		// quality = server.get_quality(article)
