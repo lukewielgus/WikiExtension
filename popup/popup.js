@@ -140,6 +140,12 @@ function process_url(url)
 			break;
 		}
 
+		if (current == "hatnote")
+		{
+			insert_spot = mw_content_text.children[i+1];
+			break;
+		}
+
 		console.log(current.tag);
 	}
 
