@@ -188,7 +188,7 @@ function jQueryMain () {
 			return;
 		}
 
-		$("body").append("<hr>");
+		//$("body").append("<hr>");
 		$("body").append("<div class=\"bg-text_lite\">Information</div>");
 
 		// get the article name
@@ -207,7 +207,7 @@ function jQueryMain () {
 
 		make_view_plot(article);
 
-		$("body").append("<hr>");
+		//$("body").append("<hr>");
 
 		var daily_page_views_2015 = get_daily_views(article,2015);
 		var page_views_2015_pretty = String(daily_page_views_2015).split(".")[0];
