@@ -86,7 +86,7 @@ function process_url(url)
 
 	// if we get here, we know its an article page
 	iFrame.width = "270";
-	iFrame.height = "500";
+	iFrame.height = "400";
 	iFrame.align = "right";
 
 	// 'content' is the id of the 'div' area used to hold the contents of the

@@ -90,7 +90,7 @@ function make_view_plot(article_name)
 
 	var interval = "daily";
 
-	var start_date = "20160101";
+	var start_date = "20150101";
 
 	var d1 = new Date();
 	var current_year = d1.getFullYear();
@@ -132,7 +132,8 @@ function make_view_plot(article_name)
 		
 		xaxis: 
 		{
-			range: [0,view_data.x.length]
+			//range: [0,view_data.x.length]
+
 		},
 
 		yaxis:
