@@ -85,7 +85,7 @@ function get_daily_views(article_name,year)
 }
 
 
-function get_view_data(article_name)
+function make_view_plot(article_name)
 {
 
 	var interval = "daily";
@@ -106,14 +106,8 @@ function get_view_data(article_name)
 	}
 	var end_date = String(current_year)+String(current_month)+String(current_day);
 
-	$("body").append("start_date: "+start_date);
-	$("body").append("end_date: "+end_date);
-
 	var data = get_pageviews(article_name,interval,start_date,end_date);
 	var obj = JSON.parse(data);
-
-	$("body").append("got obj, length = "+String(obj.items.length));
-
 	
 	var view_data = 
 	{
@@ -133,7 +127,6 @@ function get_view_data(article_name)
 			max_views = obj.items[i].views+5;
 		}
 	}
-	$("body").append("after for loop");
 
 	var layout = {
 		
@@ -146,22 +139,36 @@ function get_view_data(article_name)
 		{
 			range: [0,max_views]
 		},
-		
-		title: 'Page Views'
+
+		margin:
+		{
+			t: 0,
+			r: 0,
+			l: 25,
+			b: 20
+		}
+
 	};
 
-	//TESTER = document.getElementById('tester');
+	$("body").append("<div id=\"plot\" style=\"width:240px;height:175px;\"></div>")
 
-	//Plotly.plot()
+	var plot_spot = document.getElementById('plot');
 
-	$("body").append("here");
+	var view_trace = {
+		x: view_data.x,
+		y: view_data.y,
+		type: 'scatter'
+	};
 
+	var data = [view_trace];
 
-
-
+	Plotly.plot(
+		plot_spot,
+		data,
+		layout
+		);
 
 	return view_data;
-
 }
 
 
@@ -196,8 +203,6 @@ function jQueryMain () {
 		var quality_line = "<b>Quality</b> [article quality here]";
 		$("body").append("<p>"+quality_line+"</p>");
 
-		//$("body").append("<hr>");
-
 		$("body").append("<div class=\"bg-text\">Statistics</div>");
 
 		var daily_page_views_2015 = get_daily_views(article,2015);
@@ -216,12 +221,9 @@ function jQueryMain () {
 		var page_views_30_line = "<b>Views (Last 30)</b>&nbsp;&nbsp;"+page_views_30_pretty+" / day";
 		$("body").append("<p>"+page_views_30_line+"</p>");
 		
-
-		//var daily_2015_2016_2017 = get_view_data(article);
+		make_view_plot(article);
 
 		// here is where we would make calls to server to get article details...
 		// quality = server.get_quality(article)
-		
-
 	});
 }

@@ -3,7 +3,7 @@
   "version": "0.4",
   "manifest_version": 2,
 
-  "web_accessible_resources": ["popup/popup_box.htm"],
+  "web_accessible_resources": ["popup/popup_box.htm","popup/plotly-latest.min.js"],
 
   "description": "Highlight text based on classifications",
 
@@ -37,6 +37,8 @@
       ]
     }
   ],
+
+  "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
 
   "permissions": [
     "background",
