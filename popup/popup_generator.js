@@ -196,26 +196,29 @@ function make_view_plot(article_name)
 
 	var all_trace = 
 	{
+		name: "All Traffic",
 		x: all_traffic_data.x,
 		y: all_traffic_data.y,
-		name: "All Traffic",
 		type: 'scatter'
 	};
 
 	var human_trace = 
 	{
+		name: "Humans",
 		x: human_traffic_data.x,
 		y: human_traffic_data.y,
-		name: "Humans",
-		type: 'scatter'
+		type: 'scatter',
+		//type: 'tonexty'
 	};
 
 	var bot_trace = 
 	{
+		name: "Bots",
 		x: bot_traffic_data.x,
 		y: bot_traffic_data.y,
-		name: "Bots",
 		type: 'scatter'
+		//type: 'line',
+		//type: 'tonexty'
 	};
 
 	var layout = {
@@ -248,7 +251,7 @@ function make_view_plot(article_name)
 		margin:
 		{
 			t: 0,
-			r: 0,
+			r: 10,
 			l: 25,
 			b: 10
 		},
@@ -257,16 +260,19 @@ function make_view_plot(article_name)
 
 		legend: 
 		{
-			x: 50,
-			y: 100,
+			//x: 0.5,
+			//y: 100,
 			font:
 			{
 				size: 8
 			},
 
 			xanchor: "center",
-			yanchor: "top"
-			//orientation: "h"
+			yanchor: "top",
+			orientation: "h",
+
+			y: 0.2,
+			x: 0.5
 		},
 
 		paper_bgcolor: "#f8f9fa",
