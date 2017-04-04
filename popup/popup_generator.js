@@ -105,32 +105,22 @@ function make_view_plot(article_name)
 	var start_date = "20150101";
 
 	var d1 = new Date();
+	
 	var current_year = d1.getFullYear();
-	var current_month = d1.getMonth()+1;
 
-	if (current_month<10)
-	{
-		current_month = "0"+String(current_month);
-	}
+	var current_month = d1.getMonth()+1;
+	if (current_month<10){  current_month = "0"+String(current_month);  }
+	
 	var current_day = d1.getDate();
-	if (current_day<10)
-	{
-		current_day = "0"+String(current_day);
-	}
+	if (current_day<10){  current_day = "0"+String(current_day);  }
+	
 	var end_date = String(current_year)+String(current_month)+String(current_day);
 
-	//$("body").append("<p> start_date:"+start_date+", end_date:"+end_date+"</p>");
-
-	var human_traffic = get_pageviews_agent(article_name,interval,start_date,end_date,"user");
-	var all_traffic = get_pageviews(article_name,interval,start_date,end_date);
-
-	var human_traffic_obj = JSON.parse(human_traffic);
-	var all_traffic_obj = JSON.parse(all_traffic);
-
-	//$("body").append("<p>here</p>");
-
-	//var data = get_pageviews(article_name,interval,start_date,end_date);
-	//var obj = JSON.parse(data);
+	var human_traffic 	= get_pageviews_agent(article_name,interval,start_date,end_date,"user");
+	var all_traffic 	= get_pageviews(article_name,interval,start_date,end_date);
+	
+	var human_traffic_obj 	= JSON.parse(human_traffic);
+	var all_traffic_obj 	= JSON.parse(all_traffic);
 	
 	var all_traffic_data = 
 	{
@@ -183,9 +173,20 @@ function make_view_plot(article_name)
 		human_traffic_data.y.push(human_item);
 		bot_traffic_data.y.push(all_item-human_item);
 
-		all_traffic_data.x.push(i);
-		human_traffic_data.x.push(i);
-		bot_traffic_data.x.push(i);
+		var timestamp = String(all_traffic_obj.items[i+all_start_index].timestamp);
+		var fixed_timestamp = timestamp.substr(0,4)+"-"+timestamp.substr(4,2)+"-"+timestamp.substr(6,2);
+
+		var human_timestamp = String(human_traffic_obj.items[i+human_start_index].timestamp);
+		var all_timestamp = String(all_traffic_obj.items[i+all_start_index].timestamp);
+
+		if (human_timestamp!=all_timestamp)
+		{
+			$("body").append("<p>ERROR</p>");
+		}
+
+		all_traffic_data.x.push(fixed_timestamp);
+		human_traffic_data.x.push(fixed_timestamp);
+		bot_traffic_data.x.push(fixed_timestamp);		
 
 		if (all_item>max_views)
 		{
@@ -205,7 +206,7 @@ function make_view_plot(article_name)
 	{
 		x: human_traffic_data.x,
 		y: human_traffic_data.y,
-		name: "Human Traffic",
+		name: "Humans",
 		type: 'scatter'
 	};
 
@@ -213,7 +214,7 @@ function make_view_plot(article_name)
 	{
 		x: bot_traffic_data.x,
 		y: bot_traffic_data.y,
-		name: "Bot Traffic",
+		name: "Bots",
 		type: 'scatter'
 	};
 
@@ -221,21 +222,32 @@ function make_view_plot(article_name)
 
 		xaxis:
 		{
-			range: [0,all_trace.x.length]
+			type: 'date',
+
+			tickfont:
+			{
+				size: 8
+			}
 
 		},
 
 		yaxis:
 		{
-			range: [0,max_views]
+
+			range: [0,max_views],
+
+			tickfont:
+			{
+				size: 8
+			}
 		},
 		
 		margin:
 		{
-			t: 15,
+			t: 0,
 			r: 0,
-			l: 35,
-			b: 15
+			l: 25,
+			b: 10
 		},
 
 		showlegend: true,
@@ -243,15 +255,22 @@ function make_view_plot(article_name)
 		legend: 
 		{
 			x: 0,
-			y: 1
-		}
+			y: 1,
+			font:
+			{
+				size: 8
+			}
+		},
+
+		paper_bgcolor: "#f8f9fa",
+		plot_bgcolor: "#f8f9fa"
 
 	};
 
-	$("body").append("<div id=\"plot\" style=\"width:240px;height:150px;\"></div>")
+	$("body").append("<div id=\"plot\" style=\"width:263px;height:150px;\"></div>")
 
 	var plot_spot = document.getElementById('plot');
-	var data = [all_trace,bot_trace,human_trace];
+	var data = [human_trace,bot_trace];
 
 	Plotly.plot
 	(
