@@ -234,7 +234,10 @@ function make_view_plot(article_name)
 		yaxis:
 		{
 
-			range: [0,max_views],
+			//range: [0,max_views],
+
+			type: 'log',
+			autorange: true,
 
 			tickfont:
 			{
@@ -254,12 +257,16 @@ function make_view_plot(article_name)
 
 		legend: 
 		{
-			x: 0,
-			y: 1,
+			x: 50,
+			y: 100,
 			font:
 			{
 				size: 8
-			}
+			},
+
+			xanchor: "center",
+			yanchor: "top"
+			//orientation: "h"
 		},
 
 		paper_bgcolor: "#f8f9fa",
