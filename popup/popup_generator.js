@@ -73,7 +73,7 @@ function get_daily_views(article_name,year)
 
 	var data = get_pageviews(article_name,interval,start_date,end_date);
 	var obj = JSON.parse(data);
-	
+
 	var total = 0;
 	for (var i=0; i<obj.items.length; i++)
 	{
@@ -108,8 +108,8 @@ function make_view_plot(article_name)
 
 	var data = get_pageviews(article_name,interval,start_date,end_date);
 	var obj = JSON.parse(data);
-	
-	var view_data = 
+
+	var view_data =
 	{
 		x: [],
 		y: []
@@ -129,8 +129,8 @@ function make_view_plot(article_name)
 	}
 
 	var layout = {
-		
-		xaxis: 
+
+		xaxis:
 		{
 			//range: [0,view_data.x.length]
 
@@ -171,10 +171,6 @@ function make_view_plot(article_name)
 	return view_data;
 }
 
-
-
-
-
 function jQueryMain () {
 
 	chrome.tabs.getSelected(null,function(tab)
@@ -209,22 +205,26 @@ function jQueryMain () {
 
 		//$("body").append("<hr>");
 
+		//daily views for 2015
 		var daily_page_views_2015 = get_daily_views(article,2015);
 		var page_views_2015_pretty = String(daily_page_views_2015).split(".")[0];
 		var pageviews_2015_line = "<b>Views (2015)</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+page_views_2015_pretty+" / day";
-		$("body").append("<p>"+pageviews_2015_line+"</p>"); 
+		// add the daily views for 2015
+		$("body").append("<p>"+pageviews_2015_line+"</p>");
 
+		//daily views for 2016
 		var daily_page_views_2016 = get_daily_views(article,2016);
 		var page_views_2016_pretty = String(daily_page_views_2016).split(".")[0];
 		var pageviews_2016_line = "<b>Views (2016)</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+page_views_2016_pretty+" / day";
-		$("body").append("<p>"+pageviews_2016_line+"</p>"); 
+		// add the daily views for 2016
+		$("body").append("<p>"+pageviews_2016_line+"</p>");
 
+		//daily views in last 30 days
 		var last_30_daily_views = get_daily_views(article,"last_30");
 		var page_views_30_pretty = String(last_30_daily_views).split(".")[0];
 		var page_views_30_line = "<b>Views (Last 30)</b>&nbsp;&nbsp;"+page_views_30_pretty+" / day";
+		// add the daily views for last 30 days
 		$("body").append("<p>"+page_views_30_line+"</p>");
-		
-		//make_view_plot(article);
 
 		// here is where we would make calls to server to get article details...
 		// quality = server.get_quality(article)
