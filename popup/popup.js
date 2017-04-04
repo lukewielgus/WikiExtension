@@ -60,7 +60,7 @@ function process_url(url)
 	// create iFrame element to insert later
 	var iFrame = document.createElement("iframe");
 	iFrame.src = chrome.extension.getURL("popup/popup_box.htm");
-	iFrame.style = "border:1px solid grey;";
+	iFrame.style = "border:1px solid #a6a6a6;";
 
 	// if this is the home page, resize to a banner
 	if (url=="https://www.wikipedia.org/" || url=="https://www.wikipedia.org")
