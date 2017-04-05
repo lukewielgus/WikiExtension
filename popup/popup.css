@@ -57,3 +57,13 @@ img
     font-size: 12px;
     text-align: center;
 }
+
+.bg-text2 {
+  background-color: lavender;
+  overflow: hidden;
+  padding: 1px 1px 1px 1px;
+  position: center;
+  font-weight: bold;
+  font-size: 12px;
+  text-align: center;
+}

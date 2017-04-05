@@ -105,36 +105,36 @@ function make_view_plot(article_name)
 	var start_date = "20150101";
 
 	var d1 = new Date();
-	
+
 	var current_year = d1.getFullYear();
 
 	var current_month = d1.getMonth()+1;
 	if (current_month<10){  current_month = "0"+String(current_month);  }
-	
+
 	var current_day = d1.getDate();
 	if (current_day<10){  current_day = "0"+String(current_day);  }
-	
+
 	var end_date = String(current_year)+String(current_month)+String(current_day);
 
 	var human_traffic 	= get_pageviews_agent(article_name,interval,start_date,end_date,"user");
 	var all_traffic 	= get_pageviews(article_name,interval,start_date,end_date);
-	
+
 	var human_traffic_obj 	= JSON.parse(human_traffic);
 	var all_traffic_obj 	= JSON.parse(all_traffic);
-	
-	var all_traffic_data = 
+
+	var all_traffic_data =
 	{
 		x: [],
 		y: []
 	};
 
-	var human_traffic_data = 
+	var human_traffic_data =
 	{
 		x: [],
 		y: []
 	};
 
-	var bot_traffic_data = 
+	var bot_traffic_data =
 	{
 		x: [],
 		y: []
@@ -186,7 +186,7 @@ function make_view_plot(article_name)
 
 		all_traffic_data.x.push(fixed_timestamp);
 		human_traffic_data.x.push(fixed_timestamp);
-		bot_traffic_data.x.push(fixed_timestamp);		
+		bot_traffic_data.x.push(fixed_timestamp);
 
 		if (all_item>max_views)
 		{
@@ -194,7 +194,7 @@ function make_view_plot(article_name)
 		}
 	}
 
-	var all_trace = 
+	var all_trace =
 	{
 		name: "All Traffic",
 		x: all_traffic_data.x,
@@ -202,7 +202,7 @@ function make_view_plot(article_name)
 		type: 'scatter'
 	};
 
-	var human_trace = 
+	var human_trace =
 	{
 		name: "Humans",
 		x: human_traffic_data.x,
@@ -211,7 +211,7 @@ function make_view_plot(article_name)
 		//type: 'tonexty'
 	};
 
-	var bot_trace = 
+	var bot_trace =
 	{
 		name: "Bots",
 		x: bot_traffic_data.x,
@@ -247,7 +247,7 @@ function make_view_plot(article_name)
 				size: 8
 			}
 		},
-		
+
 		margin:
 		{
 			t: 0,
@@ -258,7 +258,7 @@ function make_view_plot(article_name)
 
 		showlegend: true,
 
-		legend: 
+		legend:
 		{
 			//x: 0.5,
 			//y: 100,
@@ -325,7 +325,9 @@ function jQueryMain () {
 
 		make_view_plot(article);
 
-		//$("body").append("<hr>");
+		$("body").append("<br>");
+
+		$("body").append("<div class=\"bg-text2\">Average Views Per Day</div>");
 
 		//daily views for 2015
 		var daily_page_views_2015 = get_daily_views(article,2015);
