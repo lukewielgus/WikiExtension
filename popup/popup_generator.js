@@ -308,27 +308,14 @@ function add_remote_data(data)
 
 	var parser = new DOMParser();
 	var htmlDoc = parser.parseFromString(data,"text/html");
-
-	$("body").append("<p>"+htmlDoc+"</p>");
-
-	var main = htmlDoc.getElementById("notice");
-
-	var items = htmlDoc.getElementsByClassName("strong");
-
-	var size = items.length;
-
-	$("body").append("<p>"+String(size)+"</p>");
-
 	var elems = htmlDoc.getElementsByTagName("strong");
-	$("body").append("<p>"+elems.length+"</p>");
+	//$("body").append("<p>"+elems.length+"</p>");
 
 	var categories = elems[1];
 	var domains = elems[2];
 	var authors = elems[3];
 
-	$("body").append("<p>Categories: "+categories.getAttribute("Categories:")+"</p>");
-
-
+	$("body").append("<p>Categories: "+categories.firstChild.wholeText+"</p>");
 
 }
 
