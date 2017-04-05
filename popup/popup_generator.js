@@ -295,7 +295,6 @@ function make_view_plot(article_name)
 // get data from our database for current article
 function get_database_entry(article_name,callback)
 {
-	article_name = "Art";
 	var url = "http://wikiclassify-env.juq3um3kg2.us-east-1.elasticbeanstalk.com/articles/"+article_name;
 	chrome.runtime.sendMessage({func: "get_remote_data", url: url}, function(response)
 	{
@@ -310,11 +309,27 @@ function add_remote_data(data)
 	var parser = new DOMParser();
 	var htmlDoc = parser.parseFromString(data,"text/html");
 
+	$("body").append("<p>"+htmlDoc+"</p>");
+
 	var main = htmlDoc.getElementById("notice");
 
-	var categories = htmlDoc.getElementById("Categories:");
+	var items = htmlDoc.getElementsByClassName("strong");
 
-	$("body").append("<p>"+categories+"</p>");
+	var size = items.length;
+
+	$("body").append("<p>"+String(size)+"</p>");
+
+	var elems = htmlDoc.getElementsByTagName("strong");
+	$("body").append("<p>"+elems.length+"</p>");
+
+	var categories = elems[1];
+	var domains = elems[2];
+	var authors = elems[3];
+
+	$("body").append("<p>Categories: "+categories.getAttribute("Categories:")+"</p>");
+
+
+
 }
 
 // Provided a referenced to a callback function, finds the URL of the
