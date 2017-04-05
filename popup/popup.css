@@ -49,7 +49,7 @@ img
 }
 
 .bg-text {
-    background-color: lavender;
+    background-color: #efefef;
     overflow: hidden;
     padding: 1px 1px 1px 1px;
     position: center;
@@ -59,7 +59,7 @@ img
 }
 
 .bg-text2 {
-  background-color: lavender;
+  background-color: #efefef;
   overflow: hidden;
   padding: 1px 1px 1px 1px;
   position: center;

@@ -329,7 +329,7 @@ function jQueryMain () {
 
 		$("body").append("<div class=\"bg-text2\">Average Views Per Day</div>");
 
-		//daily views for 2015
+/*		//daily views for 2015
 		var daily_page_views_2015 = get_daily_views(article,2015);
 		var page_views_2015_pretty = String(daily_page_views_2015).split(".")[0];
 		var pageviews_2015_line = "<b>Views (2015)</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+page_views_2015_pretty+" / day";
@@ -346,10 +346,17 @@ function jQueryMain () {
 		//daily views in last 30 days
 		var last_30_daily_views = get_daily_views(article,"last_30");
 		var page_views_30_pretty = String(last_30_daily_views).split(".")[0];
-		var page_views_30_line = "<b>Views (Last 30)</b>&nbsp;&nbsp;"+page_views_30_pretty+" / day";
+		var pageviews_30_line = "<b>Views (Last 30)</b>&nbsp;&nbsp;"+page_views_30_pretty+" / day";
 		// add the daily views for last 30 days
-		$("body").append("<p>"+page_views_30_line+"</p>");
+		$("body").append("<p>"+pageviews_30_line+"</p>");
+*/
 
+		var total_daily_views = get_daily_views(article,2015) + get_daily_views(article,2016) + get_daily_views(article,"last_30");
+		var avg_daily_views = total_daily_views / 3;
+		var avg_daily_views_pretty = String(avg_daily_views).split(".")[0];
+		var avg_daily_views_line = "<b>Views</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+avg_daily_views_pretty+" / day";
+
+		$("body").append("<p>"+avg_daily_views_line+"</p>");
 		// here is where we would make calls to server to get article details...
 		// quality = server.get_quality(article)
 	});
