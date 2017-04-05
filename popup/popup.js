@@ -1,5 +1,5 @@
 
-// low-level function to make a GET HTTP request, returns response data
+// low-level function to make a GET HTTPS request, returns response data
 function get_http_xml(url)
 {
 	var xml_http = new XMLHttpRequest();
@@ -85,8 +85,8 @@ function process_url(url)
 	}
 
 	// width is set to match the width of the existing box on the article page
-	iFrame.width = "280";
-	iFrame.height = "400";
+	iFrame.width = "290";
+	iFrame.height = "800";
 	iFrame.align = "right";
 
 	// 'content' is the id of the 'div' area used to hold the contents of the
