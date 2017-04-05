@@ -364,6 +364,9 @@ function process_url(tablink)
 	var quality_line = "<b>Quality</b> [article quality here]";
 	$("body").append("<p>"+quality_line+"</p>");
 
+	var importance_line = "<b>Importance</b> [article importance here]";
+	$("body").append("<p>"+importance_line+"</p>");
+
 	$("body").append("<div class=\"bg-text\">Popularity</div>");
 
 	make_view_plot(article);
