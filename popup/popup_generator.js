@@ -293,8 +293,85 @@ function make_view_plot(article_name)
 	);
 }
 
-function jQueryMain () {
+// Provided a referenced to a callback function, finds the URL of the
+// current tab and routes it to the callback function.
+function get_url(callback)
+{
+	chrome.runtime.sendMessage({func: "get_url"},function(response)
+	{
+		callback(String(response.data));
+	});
+}
 
+function process_url(tablink)
+{
+
+	// if this will be a banner, don't add content
+	if (tablink=="https://www.wikipedia.org" || tablink=="https://www.wikipedia.org/")
+	{
+		return;
+	}
+
+	//$("body").append("<hr>");
+	$("body").append("<div class=\"bg-text_lite\">Information</div>");
+
+	// get the article name
+	var article = tablink.split("/wiki/")[1];
+	var article_with_spaces = article.replace(/_/g," ");
+
+	var article_line = "<b>Article</b>  "+article_with_spaces;
+
+	// add the article title
+	$("body").append("<p>"+article_line+"</p>");
+
+	var quality_line = "<b>Quality</b> [article quality here]";
+	$("body").append("<p>"+quality_line+"</p>");
+
+	$("body").append("<div class=\"bg-text\">Popularity</div>");
+
+	make_view_plot(article);
+
+	$("body").append("<br>");
+
+	$("body").append("<div class=\"bg-text2\">Average Views Per Day</div>");
+
+	/*
+	//daily views for 2015
+	var daily_page_views_2015 = get_daily_views(article,2015);
+	var page_views_2015_pretty = String(daily_page_views_2015).split(".")[0];
+	var pageviews_2015_line = "<b>Views (2015)</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+page_views_2015_pretty+" / day";
+	// add the daily views for 2015
+	$("body").append("<p>"+pageviews_2015_line+"</p>");
+
+	//daily views for 2016
+	var daily_page_views_2016 = get_daily_views(article,2016);
+	var page_views_2016_pretty = String(daily_page_views_2016).split(".")[0];
+	var pageviews_2016_line = "<b>Views (2016)</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+page_views_2016_pretty+" / day";
+	// add the daily views for 2016
+	$("body").append("<p>"+pageviews_2016_line+"</p>");
+
+	//daily views in last 30 days
+	var last_30_daily_views = get_daily_views(article,"last_30");
+	var page_views_30_pretty = String(last_30_daily_views).split(".")[0];
+	var pageviews_30_line = "<b>Views (Last 30)</b>&nbsp;&nbsp;"+page_views_30_pretty+" / day";
+	// add the daily views for last 30 days
+	$("body").append("<p>"+pageviews_30_line+"</p>");
+	*/
+
+	var total_daily_views = get_daily_views(article,2015) + get_daily_views(article,2016) + get_daily_views(article,"last_30");
+	var avg_daily_views = total_daily_views / 3;
+	var avg_daily_views_pretty = String(avg_daily_views).split(".")[0];
+	var avg_daily_views_line = "<b>Views</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+avg_daily_views_pretty+" / day";
+
+	$("body").append("<p>"+avg_daily_views_line+"</p>");
+
+	// here is where we would make calls to server to get article details...
+	// quality = server.get_quality(article)
+}
+
+function jQueryMain () {
+	get_url(process_url);
+	/*
 	chrome.tabs.getSelected(null,function(tab)
 	{
 
@@ -329,7 +406,8 @@ function jQueryMain () {
 
 		$("body").append("<div class=\"bg-text2\">Average Views Per Day</div>");
 
-/*		//daily views for 2015
+
+		//daily views for 2015
 		var daily_page_views_2015 = get_daily_views(article,2015);
 		var page_views_2015_pretty = String(daily_page_views_2015).split(".")[0];
 		var pageviews_2015_line = "<b>Views (2015)</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+page_views_2015_pretty+" / day";
@@ -349,7 +427,7 @@ function jQueryMain () {
 		var pageviews_30_line = "<b>Views (Last 30)</b>&nbsp;&nbsp;"+page_views_30_pretty+" / day";
 		// add the daily views for last 30 days
 		$("body").append("<p>"+pageviews_30_line+"</p>");
-*/
+
 
 		var total_daily_views = get_daily_views(article,2015) + get_daily_views(article,2016) + get_daily_views(article,"last_30");
 		var avg_daily_views = total_daily_views / 3;
@@ -357,7 +435,9 @@ function jQueryMain () {
 		var avg_daily_views_line = "<b>Views</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+avg_daily_views_pretty+" / day";
 
 		$("body").append("<p>"+avg_daily_views_line+"</p>");
+
 		// here is where we would make calls to server to get article details...
 		// quality = server.get_quality(article)
 	});
+	*/
 }
