@@ -252,7 +252,7 @@ function make_view_plot(article_name)
 			t: 0,
 			r: 10,
 			l: 25,
-			b: 10
+			b: 23
 		},
 
 		showlegend: true,
@@ -332,7 +332,7 @@ function add_remote_data(data)
 	$(importance_anchor).html("<p id=\"importance_anchor\">"+importance_line+"</p>");
 
 	// Cleaning up authors by replacing "_" with " " and " | " with ","
-	var authors_line = "<b>Authors</b> ";
+	var authors_line = "<b>Cited Authors</b> ";
 	var authors_clean = authors.replace("_"," ");
 	authors_clean = authors_clean.replace(" | ",",");
 	authors_line += authors_clean;
@@ -389,14 +389,16 @@ function process_url(tablink)
 	var importance_line = "<b>Importance</b> [article importance here]";
 	$("body").append("<p id=\"importance_anchor\">"+importance_line+"</p>");
 
-	var authors_line = "<b>Authors</b> [authors here]";
+	var categories_line = "<b>Categories</b> [categories here]";
+	$("body").append("<p id=\"category_anchor\">"+categories_line);
+
+	$("body").append("<hr>");
+
+	var authors_line = "<b>Cited Authors</b> [authors here]";
 	$("body").append("<p id=\"authors_anchor\">"+authors_line+"</p>");
 
 	var domains_line = "<b>Cited Domains</b> [domains here]";
 	$("body").append("<p id=\"domains_anchor\">"+domains_line);
-
-	var categories_line = "<b>Categories</b> [categories here]";
-	$("body").append("<p id=\"category_anchor\">"+categories_line);
 
 
 	$("body").append("<div class=\"bg-text\">Popularity</div>");
@@ -411,7 +413,7 @@ function process_url(tablink)
 	var avg_daily_views_line = "<b>Views</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+avg_daily_views_pretty+" / day";
 
 	$("body").append("<p>"+avg_daily_views_line+"</p>");
-	
+
 	// add data from our server
 	get_database_entry(article,add_remote_data);
 }

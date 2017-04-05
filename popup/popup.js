@@ -86,7 +86,7 @@ function process_url(url)
 
 	// width is set to match the width of the existing box on the article page
 	iFrame.width = "290";
-	iFrame.height = "500";
+	iFrame.height = "530";
 	iFrame.align = "right";
 
 	// 'content' is the id of the 'div' area used to hold the contents of the
