@@ -304,19 +304,54 @@ function get_database_entry(article_name,callback)
 
 function add_remote_data(data)
 {
-	$("body").append(data);
-
+	// parsing out the HTML element from returned string
 	var parser = new DOMParser();
 	var htmlDoc = parser.parseFromString(data,"text/html");
 	var elems = htmlDoc.getElementsByTagName("strong");
-	//$("body").append("<p>"+elems.length+"</p>");
 
-	var categories = elems[1];
-	var domains = elems[2];
-	var authors = elems[3];
+	// getting data out of returned HTML element
+	var categories = elems[1].nextSibling.data;
+	var domains = elems[2].nextSibling.data;
+	var authors = elems[3].nextSibling.data;
+	var quality = elems[4].nextSibling.data;
+	var importance = elems[5].nextSibling.data;
 
-	$("body").append("<p>Categories: "+categories.firstChild.wholeText+"</p>");
+	// getting handles to prior defined insertion locations (defined in process_url)
+	var quality_anchor = document.getElementById("quality_anchor");
+	var importance_anchor = document.getElementById("importance_anchor");
+	var domains_anchor = document.getElementById("domains_anchor");
+	var authors_anchor = document.getElementById("authors_anchor");
+	var category_anchor = document.getElementById("category_anchor");
 
+	// directly inserting quality
+	var quality_line = "<b>Quality</b> "+String(quality);
+	$(quality_anchor).html("<p id=\"quality_anchor\">"+quality_line+"</p>");
+
+	// directly inserting importance
+	var importance_line = "<b>Importance</b> "+String(importance);
+	$(importance_anchor).html("<p id=\"importance_anchor\">"+importance_line+"</p>");
+
+	// Cleaning up authors by replacing "_" with " " and " | " with ","
+	var authors_line = "<b>Authors</b> ";
+	var authors_clean = authors.replace("_"," ");
+	authors_clean = authors_clean.replace(" | ",",");
+	authors_line += authors_clean;
+	$(authors_anchor).html("<p id=\"authors_anchor\">"+authors_line+"</p>");
+
+	// cleaning up domains the same
+	var domains_line = "<b>Cited Domains</b> ";
+	var domains_clean = domains.replace("_"," ");
+	domains_clean = domains_clean.replace(" | ",",");
+	domains_line += domains_clean;
+	$(domains_anchor).html("<p id=\"domains_anchor\">"+domains_line);
+
+	// cleaning up categories the same
+	var categories_line = "<b>Categories</b> ";
+	var categories_clean = categories.split("Category:").join("");
+	categories_clean = categories_clean.split("_").join(" ");
+	categories_clean = categories_clean.split(" | ").join(", ");
+	categories_line += categories_clean;
+	$(category_anchor).html("<p id=\"category_anchor\">"+categories_line);
 }
 
 // Provided a referenced to a callback function, finds the URL of the
@@ -349,13 +384,22 @@ function process_url(tablink)
 	$("body").append("<p>"+article_line+"</p>");
 
 	var quality_line = "<b>Quality</b> [article quality here]";
-	$("body").append("<p>"+quality_line+"</p>");
+	$("body").append("<p id=\"quality_anchor\">"+quality_line+"</p>");
 
 	var importance_line = "<b>Importance</b> [article importance here]";
-	$("body").append("<p>"+importance_line+"</p>");
+	$("body").append("<p id=\"importance_anchor\">"+importance_line+"</p>");
+
+	var authors_line = "<b>Authors</b> [authors here]";
+	$("body").append("<p id=\"authors_anchor\">"+authors_line+"</p>");
+
+	var domains_line = "<b>Cited Domains</b> [domains here]";
+	$("body").append("<p id=\"domains_anchor\">"+domains_line);
+
+	var categories_line = "<b>Categories</b> [categories here]";
+	$("body").append("<p id=\"category_anchor\">"+categories_line);
+
 
 	$("body").append("<div class=\"bg-text\">Popularity</div>");
-
 	make_view_plot(article);
 
 	$("body").append("<br>");
@@ -367,13 +411,9 @@ function process_url(tablink)
 	var avg_daily_views_line = "<b>Views</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+avg_daily_views_pretty+" / day";
 
 	$("body").append("<p>"+avg_daily_views_line+"</p>");
-
-	$("body").append("<div class=\"bg-text\">Remote Data</div>");
+	
 	// add data from our server
 	get_database_entry(article,add_remote_data);
-
-	// here is where we would make calls to server to get article details...
-	// quality = server.get_quality(article)
 }
 
 function jQueryMain () {
