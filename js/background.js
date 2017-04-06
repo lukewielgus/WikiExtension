@@ -28,6 +28,11 @@ chrome.runtime.onMessage.addListener(
   {
       sendResponse({data: get_http_xml(meta.url)});
   }
-  
+
+  if (meta.func == 'open_tab')
+  {
+    chrome.tabs.create({'url': meta.url});
+  }
+
 	return true;
 });

@@ -228,7 +228,7 @@ function make_view_plot(article_name)
 
 			tickfont:
 			{
-				size: 8
+				size: 10
 			}
 
 		},
@@ -333,17 +333,30 @@ function add_remote_data(data)
 
 	// Cleaning up authors by replacing "_" with " " and " | " with ","
 	var authors_line = "<b>Cited Authors</b> ";
-	var authors_clean = authors.replace("_"," ");
-	authors_clean = authors_clean.replace(" | ",",");
+	var authors_clean = authors.split("_").join(" ");
+	authors_clean = authors_clean.split(" | ").join(", ");
 	authors_line += authors_clean;
 	$(authors_anchor).html("<p id=\"authors_anchor\">"+authors_line+"</p>");
 
 	// cleaning up domains the same
 	var domains_line = "<b>Cited Domains</b> ";
-	var domains_clean = domains.replace("_"," ");
-	domains_clean = domains_clean.replace(" | ",",");
-	domains_line += domains_clean;
-	$(domains_anchor).html("<p id=\"domains_anchor\">"+domains_line);
+	var domains_split = domains.split(" | ");
+	for (var i=0; i<domains_split.length; i++)
+	{
+		var cleaned_domain = domains_split[i].split(" ").join("");
+
+		domains_line += "<a href=\"https://";
+		domains_line += cleaned_domain+"\">"+domains_split[i];
+		domains_line+="</a>";
+
+		if (i!=domains_split.length-1)
+		{
+			domains_line += ", ";
+		}
+
+	}
+
+	$(domains_anchor).html("<p id=\"domains_anchor\">"+domains_line+"</p>");
 
 	// cleaning up categories the same
 	var categories_line = "<b>Categories</b> ";
@@ -351,7 +364,7 @@ function add_remote_data(data)
 	categories_clean = categories_clean.split("_").join(" ");
 	categories_clean = categories_clean.split(" | ").join(", ");
 	categories_line += categories_clean;
-	$(category_anchor).html("<p id=\"category_anchor\">"+categories_line);
+	$(category_anchor).html("<p id=\"category_anchor\">"+categories_line+"</p>");
 }
 
 // Provided a referenced to a callback function, finds the URL of the
