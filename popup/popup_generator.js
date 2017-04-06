@@ -302,6 +302,12 @@ function get_database_entry(article_name,callback)
 	});
 }
 
+var new_tab_url = "";
+function open_tab()
+{
+
+}
+
 function add_remote_data(data)
 {
 	// parsing out the HTML element from returned string
@@ -338,9 +344,11 @@ function add_remote_data(data)
 	authors_line += authors_clean;
 	$(authors_anchor).html("<p id=\"authors_anchor\">"+authors_line+"</p>");
 
-	// cleaning up domains the same
+	// cleaning up domains
 	var domains_line = "<b>Cited Domains</b> ";
 	var domains_split = domains.split(" | ");
+
+	// using a href item for domains to allow for clicking
 	for (var i=0; i<domains_split.length; i++)
 	{
 		var cleaned_domain = domains_split[i].split(" ").join("");
@@ -353,7 +361,6 @@ function add_remote_data(data)
 		{
 			domains_line += ", ";
 		}
-
 	}
 
 	$(domains_anchor).html("<p id=\"domains_anchor\">"+domains_line+"</p>");
