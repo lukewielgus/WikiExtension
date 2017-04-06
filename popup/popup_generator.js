@@ -425,7 +425,7 @@ function process_url(tablink)
 	make_view_plot(article);
 
 	$("body").append("<br>");
-	$("body").append("<div class=\"bg-text2\">Average Views Per Day</div>");
+	$("body").append("<div class=\"bg-text\">Average Views Per Day</div>");
 
 	var total_daily_views = get_daily_views(article,2015) + get_daily_views(article,2016) + get_daily_views(article,"last_30");
 	var avg_daily_views = total_daily_views / 3;
