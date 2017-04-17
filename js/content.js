@@ -1,5 +1,8 @@
-highlightSearchTerms("the");
-doHighlight("","the");
+highlightSearchTerms("the", false, false, "<font style='color:black; background-color:blue;'>", "</font>");
+highlightSearchTerms("and", false, false, "<font style='color:black; background-color:red;'>", "</font>");
+highlightSearchTerms("is", false, false, "<font style='color:black; background-color:teal;'>", "</font>");
+
+
 /*
  * This is the function that actually highlights a text string by
  * adding HTML tags before and after all occurrences of the search
