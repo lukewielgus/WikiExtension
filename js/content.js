@@ -1,7 +1,11 @@
-highlightSearchTerms("the", false, false, "<font style='color:black; background-color:blue;'>", "</font>");
-highlightSearchTerms("and", false, false, "<font style='color:black; background-color:red;'>", "</font>");
-highlightSearchTerms("is", false, false, "<font style='color:black; background-color:teal;'>", "</font>");
+var words = ["the", "is", "and"];
+var colorsTag = ["<font style='color:black; background-color:blue;'>", "<font style='color:white; background-color:red;'>", "<font style='color:black; background-color:yellow;'>"];
+var endTag = "</font>";
+var numCatagories = 3;
 
+for(var i = 0; i < numCatagories; i++){
+  highlightSearchTerms(words[i], false, false, colorsTag[i], endTag);
+}
 
 /*
  * This is the function that actually highlights a text string by
