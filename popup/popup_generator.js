@@ -123,6 +123,14 @@ function make_view_plot(article_name)
 		y: []
 	};
 
+	var longer_moving_average = 
+	{
+		x: [],
+		y: [],
+	};
+
+	var n_days_longer = 30;
+
 	var n_days = 7;
 	var cur_tot = 0;
 	var cur_idx = 0;

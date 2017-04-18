@@ -67,13 +67,28 @@ function assemble_word_wrap(word,color,alpha)
 	return before+word+after;
 }
 
+
+var buffer = [];
 // places tags to wrap the input word with correct color
 function wrap_word(word)
 {
-	var correct_color = get_word_color(word);
-	var correct_alpha = get_word_alpha(word);
-	if (correct_color!="0,0,0"){  return assemble_word_wrap(word,correct_color,correct_alpha);  }
-	else                       {  return assemble_word_wrap(word,correct_color,"0.01");  }
+	var correct_color = "none";
+	var correct_alpha = "none";
+
+	for(var p=0; p<buffer.length; p++)
+	{
+		if (buffer[p][0]==word.toLowerCase()){  return buffer[p][1];  }
+	}
+
+	correct_color = get_word_color(word);
+	correct_alpha = get_word_alpha(word);
+	var assembled = "none";
+	
+	if (correct_color!="0,0,0"){  assembled = assemble_word_wrap(word,correct_color,correct_alpha);  }
+	else                       {  assembled = assemble_word_wrap(word,correct_color,"0.01");  }
+	
+	buffer.push([word.toLowerCase(),assembled]);
+	return assembled;
 }
 
 var text = document.body.innerHTML; // get all inner html on page
