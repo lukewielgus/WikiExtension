@@ -106,56 +106,68 @@ function process_url(url)
 	console.log(mw_content_text);
 	*/
 
-	var mw_content_text = document.getElementById("mw-content-text");
-
-	// initialize this value to -1 before loop, if we don't find a suitable
-	// insert location among the children of mw-content-text we will know because
-	// this value will still be -1
-	var insert_spot = -1;
-
-	// iterate over all children of mw-content-text portion of html
-	for(var i=0; i<mw_content_text.children.length; i++)
+	while(true)
 	{
-		// get the classname of the current child
-		var current = mw_content_text.children[i].className;
-
-		// check if the current item pertains to where we want to insert the iFrame above...
-		if (current == "infobox vcard")
+		try
 		{
-			insert_spot = mw_content_text.children[i];
+			var mw_content_text = document.getElementById("mw-content-text");
+
+			// initialize this value to -1 before loop, if we don't find a suitable
+			// insert location among the children of mw-content-text we will know because
+			// this value will still be -1
+			var insert_spot = -1;
+
+			// iterate over all children of mw-content-text portion of html
+			for(var i=0; i<mw_content_text.children.length; i++)
+			{
+				// get the classname of the current child
+				var current = mw_content_text.children[i].className;
+
+				// check if the current item pertains to where we want to insert the iFrame above...
+				if (current == "infobox vcard")
+				{
+					insert_spot = mw_content_text.children[i];
+					break;
+				}
+				if (current == "infobox vevent")
+				{
+					insert_spot = mw_content_text.children[i];
+					break;
+				}
+
+				if (current.indexOf("infobox")!=-1)
+				{
+					insert_spot = mw_content_text.children[i];
+					break;
+				}
+
+				if (current.indexOf("vertical-navbox")!=-1)
+				{
+					insert_spot = mw_content_text.children[i];
+					break;
+				}
+
+				if (current == "thumb tright")
+				{
+					insert_spot = mw_content_text.children[i];
+					break;
+				}
+
+				if (current == "hatnote")
+				{
+					insert_spot = mw_content_text.children[i+1];
+					break;
+				}
+
+				console.log(current.tag);
+			}
 			break;
 		}
-		if (current == "infobox vevent")
+		catch(err)
 		{
-			insert_spot = mw_content_text.children[i];
 			break;
+			continue;
 		}
-
-		if (current.indexOf("infobox")!=-1)
-		{
-			insert_spot = mw_content_text.children[i];
-			break;
-		}
-
-		if (current.indexOf("vertical-navbox")!=-1)
-		{
-			insert_spot = mw_content_text.children[i];
-			break;
-		}
-
-		if (current == "thumb tright")
-		{
-			insert_spot = mw_content_text.children[i];
-			break;
-		}
-
-		if (current == "hatnote")
-		{
-			insert_spot = mw_content_text.children[i+1];
-			break;
-		}
-
-		console.log(current.tag);
 	}
 
 	var insert_parent = document.getElementById("mw-content-text");

@@ -12,10 +12,12 @@ var all_colors = [(51,102,170),(17,170,153),(102,170,85),(204,204,85),(153,34,13
 // all 8 categories used
 var possible_cats = ["sports","religion","science","politics","geography","culture","biology","environment"]
 
+console.log(mapping);
+
 // return the corresponding rgb mapping for a certain category
 function map_cat_to_color(cat)
 {
-	cl = "none";
+	cl = "0,0,0";
 	for (var i=0; i<possible_cats.length; i++)
 	{
 		if (cat==possible_cats[i])
@@ -36,12 +38,13 @@ function get_word_alpha(word)
 // gets the associated color for the word
 function get_word_color(word)
 {
-	return "0,0,255";
+	//return "0,0,255";
 
 	cat = "none";
 	// search for word in mapping
 	for (var i=0; i<mapping.length; i++)
 	{
+		console.log(mapping[i]);
 		words = mapping[i].split("\t");
 		//if (word.toLowerCase() == words[0])
 		if (word==words[0])
@@ -66,8 +69,8 @@ function wrap_word(word)
 {
 	var correct_color = get_word_color(word);
 	var correct_alpha = get_word_alpha(word);
-	if (correct_color!="none"){  return assemble_word_wrap(word,correct_color,correct_alpha);  }
-	return word 
+	if (correct_color!="0,0,0"){  return assemble_word_wrap(word,correct_color,correct_alpha);  }
+	else                       {  return assemble_word_wrap(word,correct_color,"1.0");  }
 }
 
 var text = document.body.innerHTML; // get all inner html on page
