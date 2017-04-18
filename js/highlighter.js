@@ -38,7 +38,7 @@ function get_word_alpha(word)
 // gets the associated color for the word
 function get_word_color(word)
 {
-	//return "0,0,255";
+	return "0,0,255";
 
 	cat = "none";
 	// search for word in mapping
