@@ -1,10 +1,22 @@
-var words = ["the", "is", "and"];
-var colorsTag = ["<font style='color:black; background-color:rgba(0,0,255,0.5);'>", "<font style='color:black; background-color:rgba(255,0,0,0.5);'>", "<font style='color:black; background-color:rgba(0,255,0,0.5);'>"];
+var bodyText = document.body.innerHTML;
+var bodyTextMap = bodyText.split(" ");
+var wordMap = {};
+var catagories = {
+  cat1: "<font style='color:black; background-color:rgba(255,0,0,0.5);'>",
+  cat2: "<font style='color:black; background-color:rgba(0,255,0,0.5);'>",
+  cat3: "<font style='color:black; background-color:rgba(0,0,255,0.5);'>",
+  cat4: "<font style='color:black; background-color:rgba(255,0,255,0.5);'>",
+  cat5: "<font style='color:black; background-color:rgba(0,255,255,0.5);'>",
+  cat6: "<font style='color:black; background-color:rgba(127,127,127,0.5);'>"
+};
+
+var words = ["the", "is", "and", "search", "mark", "you"];
+//var colorsTag = ["<font style='color:black; background-color:rgba(0,0,255,0.5);'>", "<font style='color:black; background-color:rgba(255,0,0,0.5);'>", "<font style='color:black; background-color:rgba(0,255,0,0.5);'>"];
 var endTag = "</font>";
 var numCatagories = 3;
 
 for(var i = 0; i < numCatagories; i++){
-  highlightSearchTerms(words[i], false, false, colorsTag[i], endTag);
+  highlightSearchTerms(words[i], false, false, catagories.cat1, endTag);
 }
 
 /*
