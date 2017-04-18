@@ -7,22 +7,24 @@ xmlreq.send()
 var mapping = xmlreq.responseText.split("\n") //standard splitting by linebreaks
 
 // all 8 colors used
-var all_colors = [(51,102,170),(17,170,153),(102,170,85),(204,204,85),(153,34,136),(238,51,51),(238,119,34),(255,238,51)];
+var all_colors = [[51,102,170],[17,170,153],[102,170,85],[204,204,85],[153,34,136],[238,51,51],[238,119,34],[255,238,51]];
 
 // all 8 categories used
 var possible_cats = ["sports","religion","science","politics","geography","culture","biology","environment"]
 
-console.log(mapping);
+//console.log("mapping...");
+//console.log(mapping);
 
 // return the corresponding rgb mapping for a certain category
 function map_cat_to_color(cat)
 {
-	cl = "0,0,0";
-	for (var i=0; i<possible_cats.length; i++)
+	var cl = "0,0,0";
+	for (var r=0; r<possible_cats.length; r++)
 	{
-		if (cat==possible_cats[i])
+		if (cat==possible_cats[r])
 		{
-			cl = String(all_colors[i][0])+","+String(all_colors[i][1])+","+String(all_colors[i][2]);
+			return String(all_colors[r][0])+","+String(all_colors[r][1])+","+String(all_colors[r][2]);
+			cl = String(all_colors[r][0])+","+String(all_colors[r][1])+","+String(all_colors[r][2]);
 			break;
 		}
 	}
@@ -32,28 +34,29 @@ function map_cat_to_color(cat)
 // gets the associated alpha for the word
 function get_word_alpha(word)
 {
-	return "0.2";
+	return "0.4";
 }
 
 // gets the associated color for the word
 function get_word_color(word)
 {
-	return "0,0,255";
-
-	cat = "none";
+	if (word==" " || word==" "){  return "0,0,0";  }
+	var cat = "none";
 	// search for word in mapping
-	for (var i=0; i<mapping.length; i++)
+	for (var k=0; k<mapping.length; k++)
 	{
-		console.log(mapping[i]);
-		words = mapping[i].split("\t");
-		//if (word.toLowerCase() == words[0])
-		if (word==words[0])
+		var line_items = mapping[k].split("\t");
+		if (line_items.length==0 || line_items.length==1){  continue;  }
+		if (word.toLowerCase()==line_items[0])
 		{
-			cat = words[1];
+			//console.log(line_items);
+			cat = line_items[1];
+			//console.log("cat: "+cat);
 			break;
 		}
 	}
-	return map_cat_to_color(cat);
+	if (cat=="none"){  return "0,0,0";                }
+	else            {  return map_cat_to_color(cat);  }
 }
 
 // assembles the tags around the provided word
@@ -70,7 +73,7 @@ function wrap_word(word)
 	var correct_color = get_word_color(word);
 	var correct_alpha = get_word_alpha(word);
 	if (correct_color!="0,0,0"){  return assemble_word_wrap(word,correct_color,correct_alpha);  }
-	else                       {  return assemble_word_wrap(word,correct_color,"1.0");  }
+	else                       {  return assemble_word_wrap(word,correct_color,"0.01");  }
 }
 
 var text = document.body.innerHTML; // get all inner html on page
