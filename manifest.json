@@ -29,9 +29,7 @@
   "content_scripts": [
     {
       "matches": ["https://*.wikipedia.org/*"],
-      "js": [
-        "popup/popup.js"
-      ]
+      "js": ["popup/popup.js"]
     }
   ],
 
@@ -40,7 +38,6 @@
   "permissions": [
     "background",
     "tabs",
-    "storage",
     "<all_urls>"
   ]
 }

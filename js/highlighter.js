@@ -1,6 +1,6 @@
 
 // load the mapping into memory
-var fileURL = chrome.extension.getURL("js/10k_most_common-cat.txt"); 
+var fileURL = chrome.extension.getURL("js/10k_most_common-cat.txt");
 var xmlreq = new XMLHttpRequest()
 xmlreq.open("GET", fileURL, false) //false makes it syncronous
 xmlreq.send()
@@ -29,10 +29,10 @@ function map_cat_to_color(cat)
 	return cl;
 }
 
-// gets the associated alpha for the word 
+// gets the associated alpha for the word
 function get_word_alpha(word)
 {
-	return "0.1";
+	return "0.2";
 }
 
 // gets the associated color for the word
@@ -75,7 +75,7 @@ function wrap_word(word)
 
 var text = document.body.innerHTML; // get all inner html on page
 var words = text.split(" "); // split on " "
-var new_text = ""; // to hold colorized text 
+var new_text = ""; // to hold colorized text
 var openct = 0; // track if we are in an html tag
 
 for (var i=0; i<words.length; i++)
