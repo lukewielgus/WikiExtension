@@ -1,5 +1,5 @@
 var words = ["the", "is", "and"];
-var colorsTag = ["<font style='color:black; background-color:blue;'>", "<font style='color:white; background-color:red;'>", "<font style='color:black; background-color:yellow;'>"];
+var colorsTag = ["<font style='color:black; background-color:rgba(0,0,255,0.5);'>", "<font style='color:black; background-color:rgba(255,0,0,0.5);'>", "<font style='color:black; background-color:rgba(0,255,0,0.5);'>"];
 var endTag = "</font>";
 var numCatagories = 3;
 
