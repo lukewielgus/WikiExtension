@@ -26,19 +26,12 @@
     "default_icon": "icons/icon16.png"
   },
 
-  //"options_page": "options/options.html",
-
   "content_scripts": [
     {
       "matches": ["https://*.wikipedia.org/*"],
       "js": [
-        "popup/popup.js"//,
-        //"options/options.js"
+        "popup/popup.js"
       ]
-    },
-    {
-      "matches": ["<all_urls>"],
-      "js": ["js/highlighter.js"]
     }
   ],
 

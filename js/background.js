@@ -8,7 +8,7 @@ function get_http_xml(url)
 }
 
 chrome.browserAction.onClicked.addListener(function() {
-    chrome.tabs.executeScript(null, {file: "js/content.js"});
+    chrome.tabs.executeScript(null, {file: "js/highlighter.js"});
 });
 
 chrome.runtime.onMessage.addListener(
@@ -35,5 +35,3 @@ chrome.runtime.onMessage.addListener(
 
 	return true;
 });
-
-
