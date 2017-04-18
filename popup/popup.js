@@ -59,6 +59,8 @@ function process_url(url)
 
 	// create iFrame element to insert later
 	var iFrame = document.createElement("iframe");
+	iFrame.setAttribute("id","wiki_frame");
+
 	iFrame.src = chrome.extension.getURL("popup/popup_box.htm");
 	iFrame.style = "border:1px solid #a6a6a6;";
 
@@ -88,7 +90,8 @@ function process_url(url)
 	iFrame.width = "290";
 	iFrame.height = "580";
 	iFrame.align = "right";
-
+	
+	/*
 	// 'content' is the id of the 'div' area used to hold the contents of the
 	// wikipedia article, get a reference to it below
 	var content_handle = document.getElementById("content");
@@ -101,6 +104,9 @@ function process_url(url)
 
 	// write out mw-content-text for debugging
 	console.log(mw_content_text);
+	*/
+
+	var mw_content_text = document.getElementById("mw-content-text");
 
 	// initialize this value to -1 before loop, if we don't find a suitable
 	// insert location among the children of mw-content-text we will know because

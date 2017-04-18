@@ -32,9 +32,9 @@ h2 span
 img
 {
 	display: block;
-  margin: 0 auto;
-  margin-bottom: 5px;
-	width: 60px;
+    margin: 0 auto;
+    margin-bottom: 10px;
+	/*width: 100px;*/
 	height: 60px;
 }
 

@@ -3,7 +3,7 @@
   "version": "0.5",
   "manifest_version": 2,
 
-  "web_accessible_resources": ["popup/popup_box.htm","popup/plotly-latest.min.js"],
+  "web_accessible_resources": ["popup/popup_box.htm","popup/plotly-latest.min.js","js/10k_most_common-cat.txt"],
 
   "description": "Highlight text based on classifications",
 
@@ -26,15 +26,19 @@
     "default_icon": "icons/icon16.png"
   },
 
-  "options_page": "options/options.html",
+  //"options_page": "options/options.html",
 
   "content_scripts": [
     {
       "matches": ["https://*.wikipedia.org/*"],
       "js": [
-        "popup/popup.js",
-        "options/options.js"
+        "popup/popup.js"//,
+        //"options/options.js"
       ]
+    },
+    {
+      "matches": ["<all_urls>"],
+      "js": ["js/highlighter.js"]
     }
   ],
 

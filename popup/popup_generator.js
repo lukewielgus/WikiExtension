@@ -99,7 +99,6 @@ function get_daily_views(article_name,year)
 
 function make_view_plot(article_name)
 {
-
 	var interval = "daily";
 	var start_date = "20150101";
 
@@ -115,17 +114,8 @@ function make_view_plot(article_name)
 
 	var end_date = String(current_year)+String(current_month)+String(current_day);
 
-	var human_traffic 	= get_pageviews_agent(article_name,interval,start_date,end_date,"user");
-	var all_traffic 	= get_pageviews(article_name,interval,start_date,end_date);
-
-	var human_traffic_obj 	= JSON.parse(human_traffic);
-	var all_traffic_obj 	= JSON.parse(all_traffic);
-
-	var all_traffic_data =
-	{
-		x: [],
-		y: []
-	};
+	var human_traffic 	  = get_pageviews_agent(article_name,interval,start_date,end_date,"user");
+	var human_traffic_obj = JSON.parse(human_traffic);
 
 	var human_traffic_data =
 	{
@@ -133,73 +123,36 @@ function make_view_plot(article_name)
 		y: []
 	};
 
-	var bot_traffic_data =
-	{
-		x: [],
-		y: []
-	};
+	var n_days = 7;
+	var cur_tot = 0;
+	var cur_idx = 0;
 
-	var human_start_index = 0;
-	var all_start_index = 0;
-	var end_index = 0;
+	var total_views = 0;
 
-	if (human_traffic_obj.items.length<all_traffic_obj.items.length)
-	{
-		all_start_index = all_traffic_obj.items.length - human_traffic_obj.items.length;
-		end_index = human_traffic_obj.items.length;
+	for (var i=0; i<human_traffic_obj.items.length; i++)
+	{	
+		if (i>=n_days)
+		{
+			var cur_sum = 0;
+			for (var j=i-n_days; j<i; j++)
+			{
+				cur_sum += human_traffic_obj.items[j].views;
+			}
+			var moving_avg = cur_sum/n_days 
+			var timestamp = String(human_traffic_obj.items[i].timestamp);
+			timestamp 	  = timestamp.substr(0,4)+"-"+timestamp.substr(4,2)+"-"+timestamp.substr(6,2);
+
+			human_traffic_data.y.push(moving_avg);
+			human_traffic_data.x.push(timestamp);
+		}
+		total_views+=human_traffic_obj.items[i].views;
 	}
+	var average_views = total_views/human_traffic_obj.items.length;
+	var len = human_traffic_obj.items.length;
 
-	else
-	{
-		if (all_traffic_obj.items.length<human_traffic_obj.items.length)
-		{
-			human_start_index = human_traffic_obj.items.length - all_traffic_obj.items.length;
-			end_index = all_traffic_obj.items.length;
-		}
-		else
-		{
-			end_index = all_traffic_obj.items.length;
-		}
-	}
-
-	var max_views = -1;
-	for (var i=0; i<end_index; i++)
-	{
-		var all_item = all_traffic_obj.items[i+all_start_index].views;
-		var human_item = human_traffic_obj.items[i+human_start_index].views;
-
-		all_traffic_data.y.push(all_item);
-		human_traffic_data.y.push(human_item);
-		bot_traffic_data.y.push(all_item-human_item);
-
-		var timestamp = String(all_traffic_obj.items[i+all_start_index].timestamp);
-		var fixed_timestamp = timestamp.substr(0,4)+"-"+timestamp.substr(4,2)+"-"+timestamp.substr(6,2);
-
-		var human_timestamp = String(human_traffic_obj.items[i+human_start_index].timestamp);
-		var all_timestamp = String(all_traffic_obj.items[i+all_start_index].timestamp);
-
-		if (human_timestamp!=all_timestamp)
-		{
-			$("body").append("<p>ERROR</p>");
-		}
-
-		all_traffic_data.x.push(fixed_timestamp);
-		human_traffic_data.x.push(fixed_timestamp);
-		bot_traffic_data.x.push(fixed_timestamp);
-
-		if (all_item>max_views)
-		{
-			max_views = all_item+5;
-		}
-	}
-
-	var all_trace =
-	{
-		name: "All Traffic",
-		x: all_traffic_data.x,
-		y: all_traffic_data.y,
-		type: 'scatter'
-	};
+	// trimming down to 365 days...
+	human_traffic_data.y = human_traffic_data.y.slice(len-366,len-1);
+	human_traffic_data.x = human_traffic_data.x.slice(len-366,len-1);
 
 	var human_trace =
 	{
@@ -207,16 +160,8 @@ function make_view_plot(article_name)
 		x: human_traffic_data.x,
 		y: human_traffic_data.y,
 		type: 'scatter',
-		//type: 'tonexty'
-	};
-
-	var bot_trace =
-	{
-		name: "Bots",
-		x: bot_traffic_data.x,
-		y: bot_traffic_data.y,
-		type: 'scatter'
-		//type: 'line',
+		line: {width: 1},
+		fill: 'tozeroy'
 		//type: 'tonexty'
 	};
 
@@ -235,7 +180,6 @@ function make_view_plot(article_name)
 
 		yaxis:
 		{
-
 			//range: [0,max_views],
 
 			type: 'log',
@@ -243,53 +187,35 @@ function make_view_plot(article_name)
 
 			tickfont:
 			{
-				size: 8
+				size: 10
 			}
 		},
 
 		margin:
 		{
-			t: 0,
+			t: 10,
 			r: 10,
 			l: 25,
-			b: 23
-		},
-
-		showlegend: true,
-
-		legend:
-		{
-			//x: 0.5,
-			//y: 100,
-			font:
-			{
-				size: 8
-			},
-
-			xanchor: "center",
-			yanchor: "top",
-			orientation: "h",
-
-			y: 0.2,
-			x: 0.5
+			b: 25
 		},
 
 		paper_bgcolor: "#f8f9fa",
-		plot_bgcolor: "#f8f9fa"
-
+		plot_bgcolor: "#f8f9fa",
 	};
 
 	$("body").append("<div id=\"plot\" style=\"width:263px;height:150px;\"></div>")
 
 	var plot_spot = document.getElementById('plot');
-	var data = [human_trace,bot_trace];
+	var data = [human_trace];
 
 	Plotly.plot
 	(
 		plot_spot,
 		data,
-		layout
+		layout,
+		{displayModeBar: false}
 	);
+	return average_views;
 }
 
 // get data from our database for current article
@@ -420,16 +346,15 @@ function process_url(tablink)
 	var domains_line = "<b>Cited Domains</b> [domains here]";
 	$("body").append("<p id=\"domains_anchor\">"+domains_line);
 
-
 	$("body").append("<div class=\"bg-text\">Popularity</div>");
-	make_view_plot(article);
+	var avg_daily_views = make_view_plot(article);
 
-	$("body").append("<br>");
-	$("body").append("<div class=\"bg-text\">Average Views Per Day</div>");
+	//$("body").append("<br>");
+	//$("body").append("<div class=\"bg-text\">Average Views Per Day</div>");
 
-	var total_daily_views = get_daily_views(article,2015) + get_daily_views(article,2016) + get_daily_views(article,"last_30");
-	var avg_daily_views = total_daily_views / 3;
-	var avg_daily_views_pretty = String(avg_daily_views).split(".")[0];
+	var avg_daily_views_pretty = String(avg_daily_views.toLocaleString('en-US',{minimumFractionDigits: 2})).split(".")[0];
+
+	//var avg_daily_views_pretty = String(avg_daily_views).split(".")[0];
 	var avg_daily_views_line = "<b>Views</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+avg_daily_views_pretty+" / day";
 
 	$("body").append("<p>"+avg_daily_views_line+"</p>");

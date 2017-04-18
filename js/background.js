@@ -11,7 +11,6 @@ chrome.browserAction.onClicked.addListener(function() {
     chrome.tabs.executeScript(null, {file: "js/content.js"});
 });
 
-
 chrome.runtime.onMessage.addListener(
 	function(meta, sender, sendResponse)
 {
@@ -36,3 +35,5 @@ chrome.runtime.onMessage.addListener(
 
 	return true;
 });
+
+

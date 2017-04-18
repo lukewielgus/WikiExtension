@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html><head>
     <a href="https://wikiclassify.com">
-    <img src="icon.png" alt="icon">
+    <img src="logo_lg.png" alt="icon">
     </a>
 
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -11,5 +11,27 @@
     <script type="text/javascript" src="jquery.min.js"></script>
     <script type="text/javascript" src="popup_generator.js"></script>
 
+    <script type="application/javascript">
+    function resizeIFrameToFitContent( iFrame )
+    {
+        iFrame.width  = iFrame.contentWindow.document.body.scrollWidth;
+        iFrame.height = iFrame.contentWindow.document.body.scrollHeight;
+    }
+
+    window.addEventListener('DOMContentReady', function(e) {
+
+        var iFrame = document.getElementById( 'wiki_frame' );
+        resizeIFrameToFitContent( iFrame );
+
+        //or, to resize all iframes:
+        var iframes = document.querySelectorAll("iframe");
+        for( var i = 0; i < iframes.length; i++) {
+            resizeIFrameToFitContent( iframes[i] );
+        }
+    } );
+
+    </script>
+
     <script type="text/javascript" src="plotly-latest.min.js"></script>
+
 </head></html>
