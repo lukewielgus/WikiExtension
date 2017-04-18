@@ -88,6 +88,7 @@ function wrap_word(word)
 	else                       {  assembled = assemble_word_wrap(word,correct_color,"0.01");  }
 	
 	buffer.push([word.toLowerCase(),assembled]);
+	console.log(buffer.length);
 	return assembled;
 }
 
