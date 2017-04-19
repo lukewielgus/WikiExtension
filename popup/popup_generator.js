@@ -123,15 +123,15 @@ function make_view_plot(article_name)
 		y: []
 	};
 
-	var longer_moving_average = 
+	var long_moving_avg = 
 	{
 		x: [],
 		y: [],
 	};
 
-	var n_days_longer = 30;
-
+	var n_days_long = 30;
 	var n_days = 7;
+
 	var cur_tot = 0;
 	var cur_idx = 0;
 
@@ -164,13 +164,21 @@ function make_view_plot(article_name)
 
 	var human_trace =
 	{
-		name: "Humans",
+		name: String(n_days)+" MA",
 		x: human_traffic_data.x,
 		y: human_traffic_data.y,
 		type: 'scatter',
 		line: {width: 1},
 		fill: 'tozeroy'
-		//type: 'tonexty'
+	};
+
+	var long_moving_avg_trace = 
+	{
+		name: String(n_days_long)+" MA",
+		x: long_moving_avg.x,
+		y: long_moving_avg.y,
+		type: 'scatter',
+		line: {width: 1}
 	};
 
 	var layout = {

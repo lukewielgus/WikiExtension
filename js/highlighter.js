@@ -24,8 +24,8 @@ function map_cat_to_color(cat)
 		if (cat==possible_cats[r])
 		{
 			return String(all_colors[r][0])+","+String(all_colors[r][1])+","+String(all_colors[r][2]);
-			cl = String(all_colors[r][0])+","+String(all_colors[r][1])+","+String(all_colors[r][2]);
-			break;
+			//cl = String(all_colors[r][0])+","+String(all_colors[r][1])+","+String(all_colors[r][2]);
+			//break;
 		}
 	}
 	return cl;
