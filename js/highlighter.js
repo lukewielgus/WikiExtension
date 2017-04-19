@@ -7,7 +7,7 @@ xmlreq.send()
 var mapping = xmlreq.responseText.split("\n") //standard splitting by linebreaks
 
 // all 8 colors used
-var all_colors = [[51,102,170],[17,170,153],[102,170,85],[204,204,85],[153,34,136],[238,51,51],[238,119,34],[255,238,51]];
+var all_colors = [[0,73,170],[0,170,151],[34,170,0],[204,204,0],[153,0,131],[238,0,0],[238,99,0],[255,234,0]];
 
 // all 8 categories used
 var possible_cats = ["sports","religion","science","politics","geography","culture","biology","environment"]
