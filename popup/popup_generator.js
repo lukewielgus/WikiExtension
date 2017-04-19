@@ -375,16 +375,19 @@ function process_url(tablink)
 
 	$("body").append("<p>"+avg_daily_views_line+"</p>");
 
-	var category1 = "<font style='color:black; background-color:rgba(255,0,0,0.4);'><b>Category 1</b></font>";
-	var category2 = "<font style='color:black; background-color:rgba(0,255,0,0.4);'><b>Category 2</b></font>";
-	var category3 = "<font style='color:black; background-color:rgba(0,0,255,0.4);'><b>Category 3</b></font>";
+	var category1 = "<font style='color:black; background-color:rgba(0,73,170,0.4);'><b>Category 1</b></font>";
+	var category2 = "<font style='color:black; background-color:rgba(0,170,151,0.4);'><b>Category 2</b></font>";
+	var category3 = "<font style='color:black; background-color:rgba(34,170,0,0.4);'><b>Category 3</b></font>";
+	var category4 = "<font style='color:black; background-color:rgba(204,204,0,0.4);'><b>Category 4</b></font>";
+	var category5 = "<font style='color:black; background-color:rgba(153,0,131,0.4);'><b>Category 5</b></font>";
+	var category6 = "<font style='color:black; background-color:rgba(238,0,0,0.4);'><b>Category 6</b></font>";
+	var category7 = "<font style='color:black; background-color:rgba(238,99,0,0.4);'><b>Category 7</b></font>";
+	var category8 = "<font style='color:black; background-color:rgba(255,234,0,0.4);'><b>Category 8</b></font>";
 
-	$("body").append("<p>"+category1+"</p>");
-	$("body").append("<p>"+category2+"</p>");
-	$("body").append("<p>"+category3+"</p>");
-
-	// add data from our server
-	get_database_entry(article,add_remote_data);
+	$("body").append("<p>"+category1+"&nbsp;&nbsp;"+category2+"&nbsp;&nbsp;"+category3+"</p>");
+	$("body").append("<p>"+category4+"&nbsp;&nbsp;"+category5+"&nbsp;&nbsp;"+category6+"</p>");
+	$("body").append("<p>"+category7+"&nbsp;&nbsp;"+category8+"</p>");
+	// add data from our server	get_database_entry(article,add_remote_data);
 }
 
 function jQueryMain () {
