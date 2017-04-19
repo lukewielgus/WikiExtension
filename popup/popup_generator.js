@@ -123,7 +123,7 @@ function make_view_plot(article_name)
 		y: []
 	};
 
-	var long_moving_avg = 
+	var long_moving_avg =
 	{
 		x: [],
 		y: [],
@@ -138,7 +138,7 @@ function make_view_plot(article_name)
 	var total_views = 0;
 
 	for (var i=0; i<human_traffic_obj.items.length; i++)
-	{	
+	{
 		if (i>=n_days)
 		{
 			var cur_sum = 0;
@@ -146,7 +146,7 @@ function make_view_plot(article_name)
 			{
 				cur_sum += human_traffic_obj.items[j].views;
 			}
-			var moving_avg = cur_sum/n_days 
+			var moving_avg = cur_sum/n_days
 			var timestamp = String(human_traffic_obj.items[i].timestamp);
 			timestamp 	  = timestamp.substr(0,4)+"-"+timestamp.substr(4,2)+"-"+timestamp.substr(6,2);
 
@@ -172,7 +172,7 @@ function make_view_plot(article_name)
 		fill: 'tozeroy'
 	};
 
-	var long_moving_avg_trace = 
+	var long_moving_avg_trace =
 	{
 		name: String(n_days_long)+" MA",
 		x: long_moving_avg.x,
@@ -374,6 +374,14 @@ function process_url(tablink)
 	var avg_daily_views_line = "<b>Views</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+avg_daily_views_pretty+" / day";
 
 	$("body").append("<p>"+avg_daily_views_line+"</p>");
+
+	var category1 = "<font style='color:black; background-color:rgba(255,0,0,0.4);'><b>Category 1</b></font>";
+	var category2 = "<font style='color:black; background-color:rgba(0,255,0,0.4);'><b>Category 2</b></font>";
+	var category3 = "<font style='color:black; background-color:rgba(0,0,255,0.4);'><b>Category 3</b></font>";
+
+	$("body").append("<p>"+category1+"</p>");
+	$("body").append("<p>"+category2+"</p>");
+	$("body").append("<p>"+category3+"</p>");
 
 	// add data from our server
 	get_database_entry(article,add_remote_data);
