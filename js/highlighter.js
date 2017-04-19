@@ -19,15 +19,23 @@ var possible_cats = ["sports","religion","science","politics","geography","cultu
 function map_cat_to_color(cat)
 {
 	var cl = "0,0,0";
+
+	//console.log(possible_cats.length);
+
 	for (var r=0; r<possible_cats.length; r++)
 	{
-		if (cat==possible_cats[r])
+		//console.log(cat,possible_cats[r]);
+		//console.log(cat.length,possible_cats[r].length);
+		if (possible_cats[r]==cat)
 		{
+			//console.log(cat);
 			return String(all_colors[r][0])+","+String(all_colors[r][1])+","+String(all_colors[r][2]);
 			//cl = String(all_colors[r][0])+","+String(all_colors[r][1])+","+String(all_colors[r][2]);
 			//break;
 		}
 	}
+
+	//console.log(cl);
 	return cl;
 }
 
@@ -50,11 +58,13 @@ function get_word_color(word)
 		if (word.toLowerCase()==line_items[0])
 		{
 			//console.log(line_items);
-			cat = line_items[1];
-			//console.log("cat: "+cat);
+			//console.log(cat)
+			cat = line_items[1].split("\r").join("");
+			//console.log(cat);
 			break;
 		}
 	}
+	//console.log(cat);
 	if (cat=="none"){  return "0,0,0";                }
 	else            {  return map_cat_to_color(cat);  }
 }
@@ -83,10 +93,10 @@ function wrap_word(word)
 	correct_color = get_word_color(word);
 	correct_alpha = get_word_alpha(word);
 	var assembled = "none";
-	
+
 	if (correct_color!="0,0,0"){  assembled = assemble_word_wrap(word,correct_color,correct_alpha);  }
 	else                       {  assembled = assemble_word_wrap(word,correct_color,"0.01");  }
-	
+
 	buffer.push([word.toLowerCase(),assembled]);
 	console.log(buffer.length);
 	return assembled;
