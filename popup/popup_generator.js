@@ -310,25 +310,48 @@ function get_database_entry(article_name,callback)
 	});
 }
 
-var new_tab_url = "";
-function open_tab()
-{
-
-}
-
 function add_remote_data(data)
 {
 	// parsing out the HTML element from returned string
 	var parser = new DOMParser();
 	var htmlDoc = parser.parseFromString(data,"text/html");
-	var elems = htmlDoc.getElementsByTagName("strong");
+
+	var scores = htmlDoc.getElementsByTagName("td");
+	var importance = scores[1].innerText;
+	var quality = scores[2].innerText;
+
+	var rest = htmlDoc.getElementsByTagName("h4");
+
+	var categories = "example";
+	var domains = "example";
+	var authors = "example";
+
+	for (var q=0; q<rest.length; q++)
+	{
+		$("body").append("<p>"+rest[q].textContent+"</p>");
+
+		if (rest[q].textContent=="Categories")
+		{
+			categories = rest[q].nextSibling.nextSibling.innerText.split("&nbsp;&nbsp;").join(" | "); 
+		}
+		if (rest[q].textContent=="Cited Domains")
+		{
+			domains = rest[q].nextSibling.nextSibling.innerText;//.split("  ").join(" | "); 
+		}
+		if (rest[q].textContent=="Cited Authors")
+		{
+			authors = rest[q].nextSibling.nextSibling.innerText;//.split("  ").join(" | "); 
+		}
+	}
+
+	//var elems = htmlDoc.getElementsByTagName("strong");
 
 	// getting data out of returned HTML element
-	var categories = elems[1].nextSibling.data;
-	var domains = elems[2].nextSibling.data;
-	var authors = elems[3].nextSibling.data;
-	var quality = elems[4].nextSibling.data;
-	var importance = elems[5].nextSibling.data;
+	//var categories = elems[1].nextSibling.data;
+	//var domains = elems[2].nextSibling.data;
+	//var authors = elems[3].nextSibling.data;
+	//var quality = elems[4].nextSibling.data;
+	//var importance = elems[5].nextSibling.data;
 
 	// getting handles to prior defined insertion locations (defined in process_url)
 	var quality_anchor = document.getElementById("quality_anchor");
@@ -406,21 +429,21 @@ function process_url(tablink)
 	// add the article title
 	$("body").append("<p>"+article_line+"</p>");
 
-	var quality_line = "<b>Quality</b> [article quality here]";
+	var quality_line = "<b>Quality</b> ...";
 	$("body").append("<p id=\"quality_anchor\">"+quality_line+"</p>");
 
-	var importance_line = "<b>Importance</b> [article importance here]";
+	var importance_line = "<b>Importance</b> ...";
 	$("body").append("<p id=\"importance_anchor\">"+importance_line+"</p>");
 
-	var categories_line = "<b>Categories</b> [categories here]";
+	var categories_line = "<b>Categories</b> ...";
 	$("body").append("<p id=\"category_anchor\">"+categories_line);
 
 	$("body").append("<hr>");
 
-	var authors_line = "<b>Cited Authors</b> [authors here]";
+	var authors_line = "<b>Cited Authors</b> ...";
 	$("body").append("<p id=\"authors_anchor\">"+authors_line+"</p>");
 
-	var domains_line = "<b>Cited Domains</b> [domains here]";
+	var domains_line = "<b>Cited Domains</b> ...";
 	$("body").append("<p id=\"domains_anchor\">"+domains_line);
 
 	$("body").append("<div class=\"bg-text\">Popularity</div>");
@@ -451,7 +474,9 @@ function process_url(tablink)
 	$("body").append("<p>"+category1+"&nbsp;&nbsp;"+category2+"&nbsp;&nbsp;"+category3+"</p>");
 	$("body").append("<p>"+category4+"&nbsp;&nbsp;"+category5+"&nbsp;&nbsp;"+category6+"</p>");
 	$("body").append("<p>"+category7+"&nbsp;&nbsp;"+category8+"</p>");
+
 	// add data from our server	get_database_entry(article,add_remote_data);
+	get_database_entry(article,add_remote_data);
 }
 
 function jQueryMain () {
