@@ -117,7 +117,7 @@ function make_view_plot(article_name)
 	var human_traffic 	  = get_pageviews_agent(article_name,interval,start_date,end_date,"user");
 	var human_traffic_obj = JSON.parse(human_traffic);
 
-	var human_traffic_data =
+	var short_moving_avg =
 	{
 		x: [],
 		y: []
@@ -129,29 +129,47 @@ function make_view_plot(article_name)
 		y: [],
 	};
 
-	var n_days_long = 30;
-	var n_days = 7;
+	var daily_views = 
+	{
+		x: [],
+		y: [],
+	}
 
-	var cur_tot = 0;
-	var cur_idx = 0;
+	var n_days_long = 26;
+	var n_days_short = 12;
 
 	var total_views = 0;
 
 	for (var i=0; i<human_traffic_obj.items.length; i++)
 	{
-		if (i>=n_days)
+		if (i>=n_days_long)
 		{
-			var cur_sum = 0;
-			for (var j=i-n_days; j<i; j++)
+			var cur_sum_long = 0;
+			var cur_sum_short = 0;
+
+			for (var j=i-n_days_long; j<i; j++)
 			{
-				cur_sum += human_traffic_obj.items[j].views;
+				cur_sum_long += human_traffic_obj.items[j].views;
+
+				if (j>=i-n_days_short)
+				{
+					cur_sum_short += human_traffic_obj.items[j].views;
+				}
 			}
-			var moving_avg = cur_sum/n_days
+			var moving_avg_short = cur_sum_short/n_days_short;
+			var moving_avg_long = cur_sum_long/n_days_long;
+
 			var timestamp = String(human_traffic_obj.items[i].timestamp);
 			timestamp 	  = timestamp.substr(0,4)+"-"+timestamp.substr(4,2)+"-"+timestamp.substr(6,2);
 
-			human_traffic_data.y.push(moving_avg);
-			human_traffic_data.x.push(timestamp);
+			short_moving_avg.y.push(moving_avg_short);
+			short_moving_avg.x.push(timestamp);
+
+			long_moving_avg.y.push(moving_avg_long);
+			long_moving_avg.x.push(timestamp);
+
+			daily_views.y.push(human_traffic_obj.items[i].views);
+			daily_views.x.push(timestamp);
 		}
 		total_views+=human_traffic_obj.items[i].views;
 	}
@@ -159,14 +177,20 @@ function make_view_plot(article_name)
 	var len = human_traffic_obj.items.length;
 
 	// trimming down to 365 days...
-	human_traffic_data.y = human_traffic_data.y.slice(len-366,len-1);
-	human_traffic_data.x = human_traffic_data.x.slice(len-366,len-1);
+	short_moving_avg.y = short_moving_avg.y.slice(len-366,len-1);
+	short_moving_avg.x = short_moving_avg.x.slice(len-366,len-1);
 
-	var human_trace =
+	long_moving_avg.y = long_moving_avg.y.slice(len-366,len-1);
+	long_moving_avg.x = long_moving_avg.x.slice(len-366,len-1);
+
+	daily_views.y = daily_views.y.slice(len-366,len-1);
+	daily_views.x = daily_views.x.slice(len-366,len-1);
+
+	var short_moving_avg_trace =
 	{
-		name: String(n_days)+" MA",
-		x: human_traffic_data.x,
-		y: human_traffic_data.y,
+		name: String(n_days_short)+" MA",
+		x: short_moving_avg.x,
+		y: short_moving_avg.y,
 		type: 'scatter',
 		line: {width: 1},
 		fill: 'tozeroy'
@@ -179,6 +203,17 @@ function make_view_plot(article_name)
 		y: long_moving_avg.y,
 		type: 'scatter',
 		line: {width: 1}
+	};
+
+	
+	var volume_trace = 
+	{
+		name: "Volume",
+		x: daily_views.x,
+		y: daily_views.y,
+		type: 'scatter',
+		line: {width: 0, color: ('rgb(128,128,128)')},
+		fill: 'tozeroy'
 	};
 
 	var layout = {
@@ -217,12 +252,14 @@ function make_view_plot(article_name)
 
 		paper_bgcolor: "#f8f9fa",
 		plot_bgcolor: "#f8f9fa",
+		showlegend: false
 	};
 
 	$("body").append("<div id=\"plot\" style=\"width:263px;height:150px;\"></div>")
 
 	var plot_spot = document.getElementById('plot');
-	var data = [human_trace];
+	//var data = [short_moving_avg_trace,long_moving_avg_trace,volume_trace];
+	var data = [short_moving_avg_trace,long_moving_avg_trace];
 
 	Plotly.plot
 	(
