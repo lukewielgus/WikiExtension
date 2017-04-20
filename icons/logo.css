@@ -1,0 +1,42 @@
+
+
+#puzzle_piece_logo img{
+	position: fixed;
+
+	/*top: 50%;*/
+	top: 2px;
+	
+	/*left: 50%;*/
+	/*left: 28px;*/
+	left: 28px;
+	z-index: 2147483647;
+
+	/*
+	width: 5%;
+	height: 6%;
+	*/
+
+	width: 90px;
+	height: 62px;
+}
+
+#puzzle_piece_logo{
+	display: block;
+	/*
+	width: 10%;
+	height: 10%;
+	*/
+	/*
+	position: fixed;
+	top: 0px;
+	left: 0px;
+	*/
+	position: fixed;
+
+}
+
+@media screen and (min-width: 982px){
+	#puzzle_piece_logo img{
+		left: 35px;
+	}
+}

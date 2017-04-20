@@ -51,6 +51,18 @@ function get_url(callback)
 	});
 }
 
+// places the blue logo on the top of the wikipedia globe
+function set_top_logo()
+{
+	var div = document.createElement("DIV");
+	div.id = "puzzle_piece_logo";
+	var img = document.createElement("IMG");
+	img.src = chrome.extension.getURL("/icons/top_logo.png");
+	//img.src = "icons/top_logo.png";
+	div.appendChild(img);
+	document.body.appendChild(div);
+}
+
 // Used as the callback function for get_url, figures out if we should
 // display the iFrame structure on the current webpage.
 function process_url(url)
@@ -73,6 +85,9 @@ function process_url(url)
 		document.body.insertBefore(iFrame, document.body.firstChild);
 		return;
 	}
+
+	// place the top-of-globe logo
+	set_top_logo();
 
 	// if this is the main page, skip
 	if (url=="https://en.wikipedia.org/wiki/Main_Page")
