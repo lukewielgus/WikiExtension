@@ -67,7 +67,7 @@ function set_top_logo()
 // display the iFrame structure on the current webpage.
 function process_url(url)
 {
-	console.log(document) // write out for debugging (see chrome console)
+	//console.log(document) // write out for debugging (see chrome console)
 
 	// create iFrame element to insert later
 	var iFrame = document.createElement("iframe");

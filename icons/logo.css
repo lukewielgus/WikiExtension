@@ -4,7 +4,7 @@
 	position: fixed;
 
 	/*top: 50%;*/
-	top: 2px;
+	top: -2px;
 	
 	/*left: 50%;*/
 	/*left: 28px;*/
@@ -17,7 +17,7 @@
 	*/
 
 	width: 90px;
-	height: 62px;
+	height: 68px;
 }
 
 #puzzle_piece_logo{
