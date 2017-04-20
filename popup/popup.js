@@ -8,39 +8,6 @@ function get_http_xml(url)
 	return xml_http.responseText;
 }
 
-// article name: (with underscores)
-// increment: [daily,monthly]
-// start: YYYYMMDD format
-// end: YYYYMMDD format
-function get_pageviews(article_name,increment,start,end)
-{
-	var url = "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/";
-	url += "en.wikipedia.org/all-access/all-agents/"+article_name+"/";
-	url += increment+"/"+start+"/"+end;
-	var data = get_http_xml(url);
-	return data;
-}
-
-// Gets the average daily views for a given article in a certain year
-function get_daily_views(article_name,year)
-{
-	var start_date = String(year)+"0101";
-	var end_date = String(year+1)+"1231";
-
-	var data = get_pageviews(article_name,"monthly",start_date,end_date);
-
-	var obj = JSON.parse(data);
-
-	var total = 0;
-	for (var i=0; i<obj.items.length; i++)
-	{
-		total += obj.items[i].views;
-	}
-
-	var daily = total/365;
-	return daily;
-}
-
 // Provided a referenced to a callback function, finds the URL of the
 // current tab and routes it to the callback function.
 function get_url(callback)
@@ -103,7 +70,7 @@ function process_url(url)
 
 	// width is set to match the width of the existing box on the article page
 	iFrame.width = "290";
-	iFrame.height = "600";
+	iFrame.height = "650";
 	iFrame.align = "right";
 
 	/*

@@ -8,6 +8,35 @@ function get_http_xml(url)
 	return xml_http.responseText;
 }
 
+// returns the rank of this article in the top 1000 most viewed articles
+// yesterday, if not in the list, returns -1
+function get_view_ranking(article_name)
+{
+	var cur_date = new Date();
+	cur_date.setDate(cur_date.getDate()-1); // set to yesterday
+
+	// convert yesterday to string rep.
+	var yr  = String(cur_date.getFullYear());
+	var mth = String(cur_date.getMonth()+1);
+	if (parseInt(mth)<10){ mth = "0"+mth; }
+	var day = String(cur_date.getDate());
+	if (parseInt(day)<10){ day = "0"+day; }
+
+	// construct request url
+	var url = "https://wikimedia.org/api/rest_v1/metrics/pageviews/top/en.wikipedia.org/";
+	url    += "all-access/"+yr+"/"+mth+"/"+day;
+
+	// request the json from mediawiki
+	var data = get_http_xml(url);
+	data     = JSON.parse(data);
+
+	// iterate through articles to see if article_name is in there
+	for (var i=0; i<data.items[0].articles.length; i++){
+		if (data.items[0].articles[i].article==article_name){  return data.items[0].articles[i].rank;  }
+	}
+	return -1;
+}
+
 // article name: (with underscores)
 // increment: [daily,monthly]
 // start: YYYYMMDD format
@@ -331,15 +360,10 @@ function add_remote_data(data)
 	for (var i=0; i<domains_split.length; i++)
 	{
 		var cleaned_domain = domains_split[i].split(" ").join("");
-
 		domains_line += "<a href=\"https://";
 		domains_line += cleaned_domain+"\">"+domains_split[i];
 		domains_line+="</a>";
-
-		if (i!=domains_split.length-1)
-		{
-			domains_line += ", ";
-		}
+		if (i!=domains_split.length-1){  domains_line += ", ";  }
 	}
 
 	$(domains_anchor).html("<p id=\"domains_anchor\">"+domains_line+"</p>");
@@ -402,15 +426,18 @@ function process_url(tablink)
 	$("body").append("<div class=\"bg-text\">Popularity</div>");
 	var avg_daily_views = make_view_plot(article);
 
-	//$("body").append("<br>");
-	//$("body").append("<div class=\"bg-text\">Average Views Per Day</div>");
-
 	var avg_daily_views_pretty = String(avg_daily_views.toLocaleString('en-US',{minimumFractionDigits: 2})).split(".")[0];
-
-	//var avg_daily_views_pretty = String(avg_daily_views).split(".")[0];
-	var avg_daily_views_line = "<b>Views</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+avg_daily_views_pretty+" / day";
-
+	var avg_daily_views_line = "<b>Views</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+avg_daily_views_pretty+" / day";
 	$("body").append("<p>"+avg_daily_views_line+"</p>");
+
+	// check if a trending article
+	var rank = get_view_ranking(article);
+	if (rank!=-1)
+	{
+		var trending_line = "<b>Trending</b> #"+String(rank)+" yesterday";
+		$("body").append("<p>"+trending_line+"</p>");
+	}
+	$("body").append("<hr>");
 
 	var category1 = "<font style='color:black; background-color:rgba(0,73,170,0.4);'><b>Category 1</b></font>";
 	var category2 = "<font style='color:black; background-color:rgba(0,170,151,0.4);'><b>Category 2</b></font>";
