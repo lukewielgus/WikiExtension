@@ -57,3 +57,22 @@ img
     font-size: 12px;
     text-align: center;
 }
+
+
+
+.chip
+{
+    position: center;
+}
+
+.black-text
+{
+    font-size: 12px;
+    text-align: left;
+    margin-left: 15px;
+}
+
+a
+{
+    font-size: 12px;
+}

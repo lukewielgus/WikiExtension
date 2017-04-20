@@ -326,32 +326,27 @@ function add_remote_data(data)
 	var domains = "example";
 	var authors = "example";
 
+	var split_on = "<div class=\"chip\"><div class = \"black-text\">";
+
 	for (var q=0; q<rest.length; q++)
 	{
-		$("body").append("<p>"+rest[q].textContent+"</p>");
-
+		//$("body").append("<p>"+rest[q].textContent+"</p>");
 		if (rest[q].textContent=="Categories")
 		{
-			categories = rest[q].nextSibling.nextSibling.innerText.split("&nbsp;&nbsp;").join(" | "); 
+			//categories = rest[q].nextSibling.nextSibling.innerText;
+			categories = rest[q].nextSibling.nextSibling.innerHTML;
 		}
 		if (rest[q].textContent=="Cited Domains")
 		{
-			domains = rest[q].nextSibling.nextSibling.innerText;//.split("  ").join(" | "); 
+			domains  =rest[q].nextSibling.nextSibling.innerHTML;
+			//domains = rest[q].nextSibling.nextSibling.innerText;//.split("  ").join(" | "); 
 		}
 		if (rest[q].textContent=="Cited Authors")
 		{
-			authors = rest[q].nextSibling.nextSibling.innerText;//.split("  ").join(" | "); 
+			authors = rest[q].nextSibling.nextSibling.innerHTML;
+			//authors = rest[q].nextSibling.nextSibling.innerText;//.split("  ").join(" | "); 
 		}
 	}
-
-	//var elems = htmlDoc.getElementsByTagName("strong");
-
-	// getting data out of returned HTML element
-	//var categories = elems[1].nextSibling.data;
-	//var domains = elems[2].nextSibling.data;
-	//var authors = elems[3].nextSibling.data;
-	//var quality = elems[4].nextSibling.data;
-	//var importance = elems[5].nextSibling.data;
 
 	// getting handles to prior defined insertion locations (defined in process_url)
 	var quality_anchor = document.getElementById("quality_anchor");
@@ -377,8 +372,9 @@ function add_remote_data(data)
 
 	// cleaning up domains
 	var domains_line = "<b>Cited Domains</b> ";
-	var domains_split = domains.split(" | ");
+	//var domains_split = domains.split(" | ");
 
+	/*
 	// using a href item for domains to allow for clicking
 	for (var i=0; i<domains_split.length; i++)
 	{
@@ -388,6 +384,8 @@ function add_remote_data(data)
 		domains_line+="</a>";
 		if (i!=domains_split.length-1){  domains_line += ", ";  }
 	}
+	*/
+	domains_line+=domains
 
 	$(domains_anchor).html("<p id=\"domains_anchor\">"+domains_line+"</p>");
 

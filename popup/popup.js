@@ -25,7 +25,6 @@ function set_top_logo()
 	div.id = "puzzle_piece_logo";
 	var img = document.createElement("IMG");
 	img.src = chrome.extension.getURL("/icons/top_logo.png");
-	//img.src = "icons/top_logo.png";
 	div.appendChild(img);
 	document.body.appendChild(div);
 }
