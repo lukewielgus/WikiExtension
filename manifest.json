@@ -3,7 +3,9 @@
   "version": "0.5",
   "manifest_version": 2,
 
-  "web_accessible_resources": ["popup/popup_box.htm","popup/plotly-latest.min.js","js/10k_most_common-cat.txt","icons/top_logo.png","icons/top_logo_2.png"],
+  "web_accessible_resources": [ "popup/popup_box.htm","popup/plotly-latest.min.js",
+                                "js/10k_most_common-cat.txt","icons/top_logo.png",
+                                "icons/top_logo_2.png","js/highlighter.js"],
 
   "description": "Highlight text based on classifications",
 
@@ -19,7 +21,7 @@
 
   "background": {
     "scripts": ["js/background.js"],
-    "persistent": false
+    "persistent": true
   },
 
   "browser_action": {
@@ -37,6 +39,7 @@
   "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
 
   "permissions": [
+    "activeTab",
     "background",
     "tabs",
     "<all_urls>"
