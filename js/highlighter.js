@@ -1,4 +1,3 @@
-
 var mapping = "temp";
 var mapping_loaded = false;
 function load_mapping()
@@ -10,7 +9,7 @@ function load_mapping()
 	xmlreq.open("GET", fileURL, false) //false makes it syncronous
 	xmlreq.send()
 	mapping = xmlreq.responseText.split("\n") //standard splitting by linebreaks
-	mapping_loaded = true;	
+	mapping_loaded = true;
 }
 
 // all 8 colors used
@@ -31,9 +30,10 @@ function create_mapping_dict()
 		if (line_items.length==2)
 		{
 			var line_word = String(line_items[0]).toLowerCase(); // word of current line
-			var line_cat = line_items[1]; // category for current line
+			var line_cat = line_items[1].split("\r").join(""); // category for current line
 			var cat_idx = possible_cats.indexOf(line_cat); // index of category in 'possible_cats' and 'all_colors'
 			mapping_dict[String(line_items[0]).toLowerCase()]=cat_idx; // register the category
+			//console.log(mapping_dict[String(line_items[0]).toLowerCase()]);
 		}
 	}
 	mapping_dict_loaded=true;
@@ -49,8 +49,28 @@ function get_word_alpha(word,word_color)
 // gets the associated color for the word
 function get_word_color(word)
 {
-	if (word.toLowerCase() in mapping_dict){  return all_colors[mapping_dict[word.toLowerCase()]];}
-	else								   {  return "0,0,0";  									  }
+	//console.log("getting color");
+	if (word.toLowerCase() in mapping_dict)
+	{
+		//console.log(mapping_dict[word]);
+		return all_colors[mapping_dict[word.toLowerCase()]];
+	}
+	else
+	{
+		//console.log("0 color");
+		return "0,0,0";
+	}
+	/*for(var q = 0; q < possible_cats.length; q++)
+	{
+		//console.log(mapping_dict[word]);
+		//console.log(possible_cats[q]);
+		if (mapping_dict[word] == possible_cats[q])
+		{
+			console.log("in if statement");
+			return all_colors[q];
+		}
+	}
+	return "0,0,0";*/
 }
 
 // assembles the tags around the provided word
@@ -73,9 +93,9 @@ function highlight_current_page()
 {
 	var t0 = new Date();
 	if (mapping_dict_loaded==false)
-	{  
+	{
 		if (mapping_loaded==false){  load_mapping();  }
-		create_mapping_dict();  
+		create_mapping_dict();
 	}
 	var t1 = new Date();
 	console.log("Dict Constructor time: "+String((t1-t0)/1000)+" sec");
