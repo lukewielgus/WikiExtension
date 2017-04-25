@@ -33,7 +33,6 @@ function create_mapping_dict()
 			var line_cat = line_items[1].split("\r").join(""); // category for current line
 			var cat_idx = possible_cats.indexOf(line_cat); // index of category in 'possible_cats' and 'all_colors'
 			mapping_dict[String(line_items[0]).toLowerCase()]=cat_idx; // register the category
-			//console.log(mapping_dict[String(line_items[0]).toLowerCase()]);
 		}
 	}
 	mapping_dict_loaded=true;
@@ -60,17 +59,6 @@ function get_word_color(word)
 		//console.log("0 color");
 		return "0,0,0";
 	}
-	/*for(var q = 0; q < possible_cats.length; q++)
-	{
-		//console.log(mapping_dict[word]);
-		//console.log(possible_cats[q]);
-		if (mapping_dict[word] == possible_cats[q])
-		{
-			console.log("in if statement");
-			return all_colors[q];
-		}
-	}
-	return "0,0,0";*/
 }
 
 // assembles the tags around the provided word
