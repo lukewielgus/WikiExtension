@@ -12,56 +12,35 @@ var all_colors = [[0,73,170],[0,170,151],[34,170,0],[204,204,0],[153,0,131],[238
 // all 8 categories used
 var possible_cats = ["sports","religion","science","politics","geography","culture","biology","environment"]
 
-//console.log("mapping...");
-//console.log(mapping);
-
-// return the corresponding rgb mapping for a certain category
-function map_cat_to_color(cat)
+// dictionary mapping words to indices in all_colors list
+var mapping_dict = {};
+function create_mapping_dict()
 {
-	var cl = "0,0,0";
-	for (var r=0; r<possible_cats.length; r++)
+	for (var line_idx=0; line_idx<mapping.length; line_idx++)
 	{
-		if (possible_cats[r]==cat)
+		line_items = mapping[line_idx].split("\t");
+		if (line_items.length==2)
 		{
-			return String(all_colors[r][0])+","+String(all_colors[r][1])+","+String(all_colors[r][2]);
+			var line_word = String(line_items[0]).toLowerCase(); // word of current line
+			var line_cat = line_items[1]; // category for current line
+			var cat_idx = possible_cats.indexOf(line_cat); // index of category in 'possible_cats' and 'all_colors'
+			mapping_dict[String(line_items[0]).toLowerCase()]=cat_idx; // register the category
 		}
 	}
-	return cl;
 }
 
 // gets the associated alpha for the word
-function get_word_alpha(word)
+function get_word_alpha(word,word_color)
 {
-	return "0.4";
+	if (word_color=="0,0,0"){  return "0.01";  }
+	else					{  return "0.4";   }
 }
 
 // gets the associated color for the word
 function get_word_color(word)
 {
-	if (word==" " || word==" "){  return "0,0,0";  }
-	var cat = "none";
-	// search for word in mapping
-	for (var k=0; k<mapping.length; k++)
-	{
-		var line_items = mapping[k].split("\t");
-		if (line_items.length==0 || line_items.length==1)
-		{
-			continue;
-		}
-		if (word.toLowerCase()==line_items[0])
-		{
-			cat = line_items[1].split("\r").join("");
-			break;
-		}
-	}
-	if (cat=="none")
-	{
-		return "0,0,0";
-	}
-	else
-	{
-		return map_cat_to_color(cat);
-	}
+	if (word.toLowerCase() in mapping_dict){  return all_colors[mapping_dict[word.toLowerCase()]];}
+	else								   {  return "0,0,0";  									  }
 }
 
 // assembles the tags around the provided word
@@ -72,33 +51,18 @@ function assemble_word_wrap(word,color,alpha)
 	return before+word+after;
 }
 
-
-var buffer = [];
 // places tags to wrap the input word with correct color
 function wrap_word(word)
 {
-	var correct_color = "none";
-	var correct_alpha = "none";
-
-	for(var p=0; p<buffer.length; p++)
-	{
-		if (buffer[p][0]==word.toLowerCase())
-		{
-			return buffer[p][1];
-		}
-	}
-
 	correct_color = get_word_color(word);
-	correct_alpha = get_word_alpha(word);
-	var assembled = "none";
-
-	if (correct_color!="0,0,0"){  assembled = assemble_word_wrap(word,correct_color,correct_alpha);  }
-	else                       {  assembled = assemble_word_wrap(word,correct_color,"0.01");  }
-
-	buffer.push([word.toLowerCase(),assembled]);
-	//console.log(buffer.length);
-	return assembled;
+	correct_alpha = get_word_alpha(word,correct_color);
+	return assemble_word_wrap(word,correct_color,correct_alpha);
 }
+
+var t0 = new Date();
+create_mapping_dict();
+var t1 = new Date();
+console.log("Dict Constructor time: "+String((t1-t0)/1000)+" sec");
 
 var text = document.body.innerHTML; // get all inner html on page
 var words = text.split(" "); // split on " "
@@ -134,3 +98,6 @@ for (var i=0; i<words.length; i++)
 	if (i!=words.length-1){  new_text+=" ";  }
 }
 document.body.innerHTML = new_text;
+
+var t2 = new Date();
+console.log("Total highlighting time: "+String((t2-t0)/1000)+" sec");
