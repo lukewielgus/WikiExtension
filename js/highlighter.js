@@ -15,7 +15,7 @@ function load_mapping()
 }
 
 // all 11 colors used
-var all_colors = [[0,73,170],[0,170,151],[34,170,0],[204,204,0],[153,0,131],[238,0,0],[238,99,0],[255,234,0],[0,0,0],[0,0,0],[0,0,0]];
+var all_colors = [[0,73,170],[0,170,151],[34,170,0],[128,128,128],[153,0,131],[238,0,0],[238,99,0],[255,234,0],[123,100,0],[0,12,40],[0,80,123]];
 
 // all 11 categories used
 var possible_cats = ["film","nature","music","athletics","video_game","economics","war","infrastructure_transport","politics","populated_areas","architecture"];

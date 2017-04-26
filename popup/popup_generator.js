@@ -416,6 +416,12 @@ function process_url(tablink)
 		return;
 	}
 
+	var after_slash = tablink.split(".org/wiki/")[1];
+	var logo_anchor = document.getElementById("top_logo");
+	var logo_string = "<a id=\"top_logo\" href=\"http://www.wikiclassify.com/articles/"+after_slash+"\", target=\"_blank\">";
+	logo_string+="<img src=\"logo_lg.png\" alt=\"icon\">"
+	$(logo_anchor).html(logo_string);
+
 	//$("body").append("<hr>");
 	$("body").append("<div class=\"bg-text_lite\">Information</div>");
 
@@ -463,15 +469,15 @@ function process_url(tablink)
 	var category1 = "<font style='color:black; background-color:rgba(0,73,170,0.4);'><b>film</b></font>";
 	var category2 = "<font style='color:black; background-color:rgba(0,170,151,0.4);'><b>nature</b></font>";
 	var category3 = "<font style='color:black; background-color:rgba(34,170,0,0.4);'><b>music</b></font>";
-	var category4 = "<font style='color:black; background-color:rgba(204,204,0,0.4);'><b>athletics</b></font>";
+	var category4 = "<font style='color:black; background-color:rgba(128,128,128,0.4);'><b>athletics</b></font>";
 	var category5 = "<font style='color:black; background-color:rgba(153,0,131,0.4);'><b>video game</b></font>";
 	var category6 = "<font style='color:black; background-color:rgba(238,0,0,0.4);'><b>economics</b></font>";
 	var category7 = "<font style='color:black; background-color:rgba(238,99,0,0.4);'><b>war</b></font>";
 	var category8 = "<font style='color:black; background-color:rgba(255,234,0,0.4);'><b>infrastructure/transport</b></font>";
 	//these three need new colors
-	var category9 = "<font style='color:black; background-color:rgba(128,128,128,0.4);'><b>politics</b></font>";
-	var category10 = "<font style='color:black; background-color:rgba(128,128,128,0.4);'><b>populated areas</b></font>";
-	var category11 = "<font style='color:black; background-color:rgba(128,128,128,0.4);'><b>architecture</b></font>";
+	var category9 = "<font style='color:black; background-color:rgba(123,100,0,0.4);'><b>politics</b></font>";
+	var category10 = "<font style='color:black; background-color:rgba(0,12,40,0.4);'><b>populated areas</b></font>";
+	var category11 = "<font style='color:black; background-color:rgba(0,80,123,0.4);'><b>architecture</b></font>";
 
 	$("body").append("<p>"+category1+"&nbsp;&nbsp;"+category2+"&nbsp;&nbsp;"+category3+"</p>");
 	$("body").append("<p>"+category4+"&nbsp;&nbsp;"+category5+"&nbsp;&nbsp;"+category6+"</p>");
