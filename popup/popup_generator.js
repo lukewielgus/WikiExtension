@@ -469,9 +469,9 @@ function process_url(tablink)
 	var category7 = "<font style='color:black; background-color:rgba(238,99,0,0.4);'><b>war</b></font>";
 	var category8 = "<font style='color:black; background-color:rgba(255,234,0,0.4);'><b>infrastructure/transport</b></font>";
 	//these three need new colors
-	var category9 = "<font style='color:black; background-color:rgba(238,0,0,0.4);'><b>politics</b></font>";
-	var category10 = "<font style='color:black; background-color:rgba(238,99,0,0.4);'><b>populated areas</b></font>";
-	var category11 = "<font style='color:black; background-color:rgba(255,234,0,0.4);'><b>architecture</b></font>";
+	var category9 = "<font style='color:black; background-color:rgba(128,128,128,0.4);'><b>politics</b></font>";
+	var category10 = "<font style='color:black; background-color:rgba(128,128,128,0.4);'><b>populated areas</b></font>";
+	var category11 = "<font style='color:black; background-color:rgba(128,128,128,0.4);'><b>architecture</b></font>";
 
 	$("body").append("<p>"+category1+"&nbsp;&nbsp;"+category2+"&nbsp;&nbsp;"+category3+"</p>");
 	$("body").append("<p>"+category4+"&nbsp;&nbsp;"+category5+"&nbsp;&nbsp;"+category6+"</p>");
