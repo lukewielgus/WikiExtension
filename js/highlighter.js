@@ -5,7 +5,8 @@ function load_mapping()
 	console.log("Loading mapping")
 	// load the mapping into memory
 	//var fileURL = chrome.extension.getURL("js/10k_most_common-cat.txt");
-	var fileURL = chrome.extension.getURL("js/20k_most_common-content.txt");
+	//var fileURL = chrome.extension.getURL("js/20k_most_common-content.txt");
+	var fileURL = chrome.extension.getURL("js/20k_most_common-content2.txt");
 	var xmlreq = new XMLHttpRequest()
 	xmlreq.open("GET", fileURL, false) //false makes it syncronous
 	xmlreq.send()
