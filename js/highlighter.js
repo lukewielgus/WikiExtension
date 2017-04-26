@@ -32,7 +32,7 @@ function create_mapping_dict()
 		{
 			var line_word = String(line_items[0]).toLowerCase(); // word of current line
 			var line_cat = line_items[1].split("\r").join(""); // category for current line
-			if (line_cat=="war" || line_cat=="populated_areas" || line_cat=="music"){  continue;  }
+			//if (line_cat=="war" || line_cat=="populated_areas" || line_cat=="music"){  continue;  }
 			var cat_idx = possible_cats.indexOf(line_cat); // index of category in 'possible_cats' and 'all_colors'
 			mapping_dict[String(line_items[0]).toLowerCase()]=cat_idx; // register the category
 		}
