@@ -16,7 +16,7 @@ function load_mapping()
 var all_colors = [[0,73,170],[0,170,151],[34,170,0],[204,204,0],[153,0,131],[238,0,0],[238,99,0],[255,234,0]];
 
 // all 8 categories used
-var possible_cats = ["sports","religion","science","politics","geography","culture","biology","environment"]
+var possible_cats = ["film","nature","music","athletics","video_game","economics","war","infrastructure_transport","politics","populated_areas","architecture"];
 
 // dictionary mapping words to indices in all_colors list
 var mapping_dict = {};
