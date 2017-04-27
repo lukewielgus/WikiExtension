@@ -1,3 +1,9 @@
+
+// these need to be the same as the ones in highlighter.js
+var all_colors = [[0,73,170],[0,170,151],[34,170,0],[128,128,128],[153,0,131],[238,0,0],[238,99,0],[255,234,0],[123,100,0],[0,12,40],[0,80,123]];
+//var possible_cats = ["film","nature","music","athletics","video_game","economics","war","infrastructure_transport","politics","populated_areas","architecture"];
+var possible_cats = class_names = ["top","high","mid","low"]
+
 $(document).ready (jQueryMain);
 
 function get_http_xml(url)
@@ -466,23 +472,28 @@ function process_url(tablink)
 	}
 	$("body").append("<hr>");
 
-	var category1 = "<font style='color:black; background-color:rgba(0,73,170,0.4);'><b>film</b></font>";
-	var category2 = "<font style='color:black; background-color:rgba(0,170,151,0.4);'><b>nature</b></font>";
-	var category3 = "<font style='color:black; background-color:rgba(34,170,0,0.4);'><b>music</b></font>";
-	var category4 = "<font style='color:black; background-color:rgba(128,128,128,0.4);'><b>athletics</b></font>";
-	var category5 = "<font style='color:black; background-color:rgba(153,0,131,0.4);'><b>video game</b></font>";
-	var category6 = "<font style='color:black; background-color:rgba(238,0,0,0.4);'><b>economics</b></font>";
-	var category7 = "<font style='color:black; background-color:rgba(238,99,0,0.4);'><b>war</b></font>";
-	var category8 = "<font style='color:black; background-color:rgba(255,234,0,0.4);'><b>infrastructure/transport</b></font>";
-	//these three need new colors
-	var category9 = "<font style='color:black; background-color:rgba(123,100,0,0.4);'><b>politics</b></font>";
-	var category10 = "<font style='color:black; background-color:rgba(0,12,40,0.4);'><b>populated areas</b></font>";
-	var category11 = "<font style='color:black; background-color:rgba(0,80,123,0.4);'><b>architecture</b></font>";
 
-	$("body").append("<p>"+category1+"&nbsp;&nbsp;"+category2+"&nbsp;&nbsp;"+category3+"</p>");
-	$("body").append("<p>"+category4+"&nbsp;&nbsp;"+category5+"&nbsp;&nbsp;"+category6+"</p>");
-	$("body").append("<p>"+category7+"&nbsp;&nbsp;"+category8+"&nbsp;&nbsp;"+category9+"</p>");
-	$("body").append("<p>"+category10+"&nbsp;&nbsp;"+category11+"</p>");
+	// see the top of file for mapping names and colors
+	var row_len=3;
+	var cat_s="";
+	for (var cat_idx=0; cat_idx<possible_cats.length; cat_idx++)
+	{
+		var cat_c = all_colors[cat_idx];
+		cat_s += "<font style=\'color:black; background-color:rgba";
+		cat_s += "("+String(cat_c[0])+","+String(cat_c[1])+","+String(cat_c[2])+",0.4);\'>";
+		cat_s += "<b>"+possible_cats[cat_idx]+"</b></font>";
+		
+		if (((cat_idx+1)%row_len)==0)
+		{
+			$("body").append("<p>"+cat_s+"</p>");
+			cat_s="";
+		}
+		else
+		{
+			if (cat_idx!=possible_cats.length-1) {  cat_s+="&nbsp;&nbsp;";  }
+		}
+	}
+	if (cat_s!=""){  $("body").append("<p>"+cat_s+"</p>");  }
 
 	// add data from our server	get_database_entry(article,add_remote_data);
 	get_database_entry(article,add_remote_data);

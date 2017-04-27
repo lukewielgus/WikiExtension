@@ -1,24 +1,33 @@
+
+/*
+// source file for mappings
+var map_src = "js/20k_most_common-content2.txt";
+
+// these need to be the same as those in popup_generator.js
+var all_colors = [[0,73,170],[0,170,151],[34,170,0],[128,128,128],[153,0,131],[238,0,0],[238,99,0],[255,234,0],[123,100,0],[0,12,40],[0,80,123]];
+var possible_cats = ["film","nature","music","athletics","video_game","economics","war","infrastructure_transport","politics","populated_areas","architecture"];
+*/
+
+// source file for mappings
+var map_src = "js/20k_most_common-importance.txt";
+
+// these need to be the same as those in popup_generator.js
+var all_colors = [[0,73,170],[0,170,151],[34,170,0],[128,128,128],[153,0,131],[238,0,0],[238,99,0],[255,234,0],[123,100,0],[0,12,40],[0,80,123]];
+var possible_cats = class_names = ["top","high","mid","low"]
+
+
 var mapping = "temp";
 var mapping_loaded = false;
 function load_mapping()
 {
 	console.log("Loading mapping")
-	// load the mapping into memory
-	//var fileURL = chrome.extension.getURL("js/10k_most_common-cat.txt");
-	//var fileURL = chrome.extension.getURL("js/20k_most_common-content.txt");
-	var fileURL = chrome.extension.getURL("js/20k_most_common-content2.txt");
+	var fileURL = chrome.extension.getURL(map_src);
 	var xmlreq = new XMLHttpRequest()
 	xmlreq.open("GET", fileURL, false) //false makes it syncronous
 	xmlreq.send()
 	mapping = xmlreq.responseText.split("\n") //standard splitting by linebreaks
 	mapping_loaded = true;
 }
-
-// all 11 colors used
-var all_colors = [[0,73,170],[0,170,151],[34,170,0],[128,128,128],[153,0,131],[238,0,0],[238,99,0],[255,234,0],[123,100,0],[0,12,40],[0,80,123]];
-
-// all 11 categories used
-var possible_cats = ["film","nature","music","athletics","video_game","economics","war","infrastructure_transport","politics","populated_areas","architecture"];
 
 // dictionary mapping words to indices in all_colors list
 var mapping_dict = {};
@@ -33,7 +42,6 @@ function create_mapping_dict()
 		{
 			var line_word = String(line_items[0]).toLowerCase(); // word of current line
 			var line_cat = line_items[1].split("\r").join(""); // category for current line
-			//if (line_cat=="war" || line_cat=="populated_areas" || line_cat=="music"){  continue;  }
 			var cat_idx = possible_cats.indexOf(line_cat); // index of category in 'possible_cats' and 'all_colors'
 			mapping_dict[String(line_items[0]).toLowerCase()]=cat_idx; // register the category
 		}
