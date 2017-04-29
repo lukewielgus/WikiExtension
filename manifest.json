@@ -7,7 +7,7 @@
                                 "js/10k_most_common-cat.txt","icons/top_logo.png",
                                 "icons/top_logo_2.png","js/highlighter.js",
                                 "js/20k_most_common-content.txt","js/20k_most_common-content2.txt",
-                                "js/20k_most_common-importance.txt"],
+                                "js/20k_most_common-importance.txt","icons/top_logo_homepage.png"],
 
   "description": "Highlight text based on classifications",
 

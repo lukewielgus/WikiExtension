@@ -29,11 +29,36 @@ function set_top_logo()
 	document.body.appendChild(div);
 }
 
+// places the blue logo on the wikipedia globe on the home page
+function set_middle_logo()
+{
+	var div = document.createElement("DIV");
+	div.id = "puzzle_piece_logo_homepage";
+	var img = document.createElement("IMG");
+	img.src = chrome.extension.getURL("/icons/top_logo_homepage.png");
+	div.appendChild(img);
+	document.body.appendChild(div);
+}
+
 // Used as the callback function for get_url, figures out if we should
 // display the iFrame structure on the current webpage.
 function process_url(url)
 {
 	//console.log(document) // write out for debugging (see chrome console)
+
+	// if this is the home page
+	if (url=="https://www.wikipedia.org/" || url=="https://www.wikipedia.org")
+	{
+		set_middle_logo();
+		return;
+		/*
+		iFrame.width = (parseInt(document.body.clientWidth)).toString();
+		iFrame.height = "70";
+		iFrame.align = "center";
+		document.body.insertBefore(iFrame, document.body.firstChild);
+		return;
+		*/
+	}
 
 	// create iFrame element to insert later
 	var iFrame = document.createElement("iframe");
@@ -41,16 +66,6 @@ function process_url(url)
 
 	iFrame.src = chrome.extension.getURL("popup/popup_box.htm");
 	iFrame.style = "border:1px solid #a6a6a6;";
-
-	// if this is the home page, resize to a banner
-	if (url=="https://www.wikipedia.org/" || url=="https://www.wikipedia.org")
-	{
-		iFrame.width = (parseInt(document.body.clientWidth)).toString();
-		iFrame.height = "100";
-		iFrame.align = "center";
-		document.body.insertBefore(iFrame, document.body.firstChild);
-		return;
-	}
 
 	// place the top-of-globe logo
 	set_top_logo();
