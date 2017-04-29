@@ -331,6 +331,7 @@ function add_remote_data(data)
 	var categories = "example";
 	var domains = "example";
 	var authors = "example";
+	var related_articles = "N/A";
 
 	var split_on = "<div class=\"chip\"><div class = \"black-text\">";
 
@@ -352,14 +353,23 @@ function add_remote_data(data)
 			authors = rest[q].nextSibling.nextSibling.innerHTML;
 			//authors = rest[q].nextSibling.nextSibling.innerText;//.split("  ").join(" | ");
 		}
+		if (rest[q].textContent=="Closest Articles")
+		{
+			related_articles = rest[q].nextSibling.nextSibling.innerHTML;
+		}
 	}
 
 	// getting handles to prior defined insertion locations (defined in process_url)
+	var related_anchor = document.getElementById("related_anchor");
 	var quality_anchor = document.getElementById("quality_anchor");
 	var importance_anchor = document.getElementById("importance_anchor");
 	var domains_anchor = document.getElementById("domains_anchor");
 	var authors_anchor = document.getElementById("authors_anchor");
 	var category_anchor = document.getElementById("category_anchor");
+
+	// directly inserting related articles 
+	var related_line = "<b>Related Articles</b> "+String(related_articles);
+	$(related_anchor).html("<p id\"related_anchor\">"+related_line);
 
 	// directly inserting quality
 	var quality_line = "<b>Quality</b> "+String(quality);
@@ -444,6 +454,9 @@ function process_url(tablink)
 
 	var importance_line = "<b>Importance</b> ...";
 	$("body").append("<p id=\"importance_anchor\">"+importance_line+"</p>");
+
+	var related_articles_line = "<b>Related Articles</b> ...";
+	$("body").append("<p id=\"related_anchor\">"+related_articles_line+"</p>");
 
 	var categories_line = "<b>Categories</b> ...";
 	$("body").append("<p id=\"category_anchor\">"+categories_line);
