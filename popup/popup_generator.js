@@ -313,6 +313,50 @@ function make_view_plot(article_name)
 	return average_views;
 }
 
+// gets the number of revisions of this article in past week
+function get_revision_history(article_name)
+{
+	
+	var t0 = new Date();
+	t0.setDate(t0.getDate()-8); // 8 days ago
+	t0 = t0.toISOString();
+
+	var t1 = new Date();
+	t1.setDate(t1.getDate()-1); // yesterday
+	t1 = t1.toISOString(); // current timestamp
+	
+	var url="https://en.wikipedia.org/w/api.php?action=query&format=json&prop=revisions";
+	url += "&titles="+article_name;
+	url += "&rvlimit=5000";
+	url += "&rvprop=user";
+	url += "&rvstart="+t1;
+	url += "&rvend="+t0;
+
+	// request the json from mediawiki
+	var rev_data = get_http_xml(url);
+	rev_data     = JSON.parse(rev_data);
+
+	if ("query" in rev_data)
+	{
+		if ("pages" in rev_data.query)
+		{
+			for (var key in rev_data.query.pages)
+			{
+				try
+				{
+					return rev_data.query.pages[key].revisions.length;
+				}
+				catch(err)
+				{
+					continue;
+				}
+			}
+		}
+	}
+	return 0;
+}
+
+
 // get data from our database for current article
 function get_database_entry(article_name,callback)
 {
@@ -468,7 +512,6 @@ function process_url(tablink)
 	var categories_line = "<b>Categories</b> ...";
 	$("body").append("<p id=\"category_anchor\">"+categories_line);
 
-	$("body").append("<hr>");
 
 	var authors_line = "<b>Cited Authors</b> ...";
 	$("body").append("<p id=\"authors_anchor\">"+authors_line+"</p>");
@@ -490,8 +533,12 @@ function process_url(tablink)
 		var trending_line = "<b>Trending</b> #"+String(rank)+" yesterday";
 		$("body").append("<p>"+trending_line+"</p>");
 	}
-	$("body").append("<hr>");
 
+	var revisions_last_week = get_revision_history(article);
+	var revisions_line = "<b>Revisions</b>&nbsp;&nbsp;"+String(revisions_last_week)+" Last Week";
+	$("body").append("<p>"+revisions_line+"</p>");
+
+	$("body").append("<hr>");
 
 	// see the top of file for mapping names and colors
 	var row_len=3;

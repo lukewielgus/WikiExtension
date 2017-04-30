@@ -130,6 +130,11 @@ function process_url(url)
 					insert_spot = mw_content_text.children[i];
 					break;
 				}
+				if (current == "toc")
+				{
+					insert_spot = mw_content_text.children[i];
+					break;
+				}
 
 				if (current.indexOf("infobox")!=-1)
 				{
