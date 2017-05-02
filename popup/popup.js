@@ -25,25 +25,18 @@ function set_top_logo()
 	div.id = "puzzle_piece_logo";
 	var img = document.createElement("IMG");
 	img.src = chrome.extension.getURL("/icons/wikilogo_new.png");
-	//div.appendChild(img);
 
 	var a = document.createElement("a");
 	a.href = "http://www.wikiclassify.com";
 	a.target = "_blank";
 	a.appendChild(img);
 	div.appendChild(a);
-
 	document.body.appendChild(div);
 }
 
 // places the blue logo on the wikipedia globe on the home page
 function set_middle_logo()
 {
-    /*
-    <a id="top_logo" href="http://www.wikiclassify.com" target="_blank">
-    <img src="logo_lg.png" alt="icon">
-    </a>
-	*/
 	var div = document.createElement("DIV");
 	div.id = "puzzle_piece_logo_homepage";
 	var img = document.createElement("IMG");
@@ -54,9 +47,56 @@ function set_middle_logo()
 	a.target = "_blank";
 	a.appendChild(img);
 	div.appendChild(a);
-
-
 	document.body.appendChild(div);
+}
+
+function set_list_elem()
+{
+	var panel = document.getElementById("mw-panel");
+	var panel_logo = panel.children[0];
+	var first_panel_elem = panel.children[1];
+
+	console.log(first_panel_elem);
+
+	var new_panel_elem = document.createElement("div");
+	new_panel_elem.className = "portal";
+	new_panel_elem.role = "navigation";
+	new_panel_elem.id = "wikiclassify-panel";
+
+	var panel_header = document.createElement("h3");
+	panel_header.id = "wikiclassify-panel-header";
+	panel_header.innerHTML =  "WikiClassify";
+	new_panel_elem.appendChild(panel_header);
+
+	var panel_body = document.createElement("div");
+	panel_body.className = "body";
+	new_panel_elem.appendChild(panel_body);
+
+	var panel_list = document.createElement("ul");
+	panel_body.appendChild(panel_list);
+
+	var panel_list_entry = document.createElement("li");
+	panel_list.appendChild(panel_list_entry);
+
+	var panel_list_entry_link = document.createElement("a");
+	panel_list_entry.appendChild(panel_list_entry_link);
+
+	panel_list_entry_link.href = "http://www.wikiclassify.com";
+	panel_list_entry_link.target = "_blank";
+	panel_list_entry_link.innerText = "Visit WikiClassify";
+
+	var panel_trending_entry = document.createElement("li");
+	panel_list.appendChild(panel_trending_entry);
+
+	var panel_trending_link = document.createElement("a");
+	panel_trending_entry.appendChild(panel_trending_link);
+	panel_trending_link.href = "http://www.wikiclassify.com/trending";
+	panel_trending_link.target = "_blank";
+	panel_trending_link.innerText = "Trending Articles";
+
+	panel.insertBefore(new_panel_elem,first_panel_elem);
+
+	console.log("here");
 }
 
 // Used as the callback function for get_url, figures out if we should
@@ -70,14 +110,10 @@ function process_url(url)
 	{
 		set_middle_logo();
 		return;
-		/*
-		iFrame.width = (parseInt(document.body.clientWidth)).toString();
-		iFrame.height = "70";
-		iFrame.align = "center";
-		document.body.insertBefore(iFrame, document.body.firstChild);
-		return;
-		*/
 	}
+
+	// set the WikiClassify list elements in the left panel
+	set_list_elem();
 
 	// create iFrame element to insert later
 	var iFrame = document.createElement("iframe");
@@ -105,21 +141,6 @@ function process_url(url)
 	iFrame.width = "290";
 	iFrame.height = "650";
 	iFrame.align = "right";
-
-	/*
-	// 'content' is the id of the 'div' area used to hold the contents of the
-	// wikipedia article, get a reference to it below
-	var content_handle = document.getElementById("content");
-
-	// 'body-content' is the element below 'content' that holds the actual article data
-	var bodyContent = content_handle.children[4];
-
-	// mw-content-text is all data below the title of the article
-	var mw_content_text	= bodyContent.children[3];
-
-	// write out mw-content-text for debugging
-	console.log(mw_content_text);
-	*/
 
 	while(true)
 	{
