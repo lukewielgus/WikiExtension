@@ -474,6 +474,15 @@ function get_url(callback)
 	});
 }
 
+function expand_frame_listener()
+{
+	//$("wiki_frame").addClass("expanded");
+	//$("body").height = 100;
+	//window.parent.document.getElementById("wiki_frame").height=50;
+	$("#wiki_frame").height=50;
+	//$("body").append("<p>clicked</p>");
+}
+
 function process_url(tablink)
 {
 	// if this will be a banner, don't add content
@@ -481,6 +490,9 @@ function process_url(tablink)
 	{
 		return;
 	}
+
+	//expander.addEventListener("click",expand_frame_listener);
+	//expander.onclick = expand_frame_listener;
 
 	var after_slash = tablink.split(".org/wiki/")[1];
 	var logo_anchor = document.getElementById("top_logo");

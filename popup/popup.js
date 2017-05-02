@@ -73,6 +73,7 @@ function set_list_elems()
 	new_panel_elem.appendChild(panel_body);
 
 	var panel_list = document.createElement("ul");
+	panel_list.id = "wikipanel-list";
 	panel_body.appendChild(panel_list);
 
 	var panel_list_entry = document.createElement("li");
@@ -105,6 +106,37 @@ function get_article_coords()
 	return;
 }
 
+function add_sizing_elems()
+{
+	var panel_list = document.getElementById("wikipanel-list");
+
+	var expand_elem_entry = document.createElement("li");
+	panel_list.appendChild(expand_elem_entry);
+
+	var collapse_elem_entry = document.createElement("li");
+	panel_list.appendChild(collapse_elem_entry);
+
+	var expand_link = document.createElement("a");
+	var collapse_link = document.createElement("a");
+
+	expand_link.innerText = "Expand Frame";
+	collapse_link.innerText = "Collapse Frame";
+
+	expand_link.onclick = function()
+	{
+		document.getElementById("wiki_frame").height=1000;
+	}
+
+	collapse_link.onclick = function()
+	{
+		document.getElementById("wiki_frame").height=300;
+	}
+
+	expand_elem_entry.appendChild(expand_link);
+	collapse_elem_entry.appendChild(collapse_link);
+
+}
+
 
 // Used as the callback function for get_url, figures out if we should
 // display the iFrame structure on the current webpage.
@@ -122,9 +154,18 @@ function process_url(url)
 	// set the WikiClassify list elements in the left panel
 	set_list_elems();
 
+	var iframe_container = document.createElement("div");
+	iframe_container.id = "wiki_frame_container";
+	iframe_container.className = "resizeable";
+	iframe_container.resize="both";
+	iframe_container.overflow="auto";
+
 	// create iFrame element to insert later
 	var iFrame = document.createElement("iframe");
-	iFrame.setAttribute("id","wiki_frame");
+	iFrame.id="wiki_frame";
+	//iFrame.setAttribute("id","wiki_frame");
+
+	iframe_container.appendChild(iFrame);
 
 	iFrame.src = chrome.extension.getURL("popup/popup_box.htm");
 	iFrame.style = "border:1px solid #a6a6a6;";
@@ -151,6 +192,8 @@ function process_url(url)
 	iFrame.width = "290";
 	iFrame.height = "650";
 	iFrame.align = "right";
+
+	add_sizing_elems();
 
 	while(true)
 	{
@@ -228,14 +271,16 @@ function process_url(url)
 		var y = document.getElementsByTagName("p");
 		console.log(y[0]);
 		insert_spot = y[0];
-		insert_parent.insertBefore(iFrame,insert_spot);
+		//insert_parent.insertBefore(iFrame,insert_spot);
+		insert_parent.insertBefore(iframe_container,insert_spot);
 		return;
 	}
 
 	else
 	{
 		insert_parent = insert_spot.parentElement;
-		insert_parent.insertBefore(iFrame,insert_spot);
+		//insert_parent.insertBefore(iFrame,insert_spot);
+		insert_parent.insertBefore(iframe_container,insert_spot);
 		return;
 	}
 }
@@ -244,3 +289,11 @@ function process_url(url)
 // after get_url has called callback. The value provided to callback
 // by get_url will be routed as the input to process_url
 get_url(process_url);
+
+$(function () {
+    $(".resizable").resizable({
+        animate: true,
+        animateEasing: 'swing',
+        imateDuration: 500
+    });
+});
