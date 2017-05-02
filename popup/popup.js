@@ -289,11 +289,3 @@ function process_url(url)
 // after get_url has called callback. The value provided to callback
 // by get_url will be routed as the input to process_url
 get_url(process_url);
-
-$(function () {
-    $(".resizable").resizable({
-        animate: true,
-        animateEasing: 'swing',
-        imateDuration: 500
-    });
-});
