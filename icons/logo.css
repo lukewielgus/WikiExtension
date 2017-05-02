@@ -2,12 +2,20 @@
 
 #puzzle_piece_logo img{
 	/*position: fixed;*/
+	/*
 	position: absolute;
 	top: -2px;
 	left: 28px;
 	z-index: 2147483647;
 	width: 90px;
 	height: 68px;
+	*/
+	position: absolute;
+	top: -4px;
+	left: 28px;
+	z-index: 2147483647;
+	width: 104px;
+	height: 74px;
 }
 
 #puzzle_piece_logo{
@@ -48,10 +56,10 @@
 
 	/*position: relative;*/
 	position: absolute;
-	top: 151px;
+	top: 140px;
 
-	width: 184px;
-	height: 105px;
+	width: 198px;
+	height: 138px;
 	/*border-right: 100px;*/
 }
 

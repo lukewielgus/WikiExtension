@@ -24,7 +24,8 @@ function set_top_logo()
 	var div = document.createElement("DIV");
 	div.id = "puzzle_piece_logo";
 	var img = document.createElement("IMG");
-	img.src = chrome.extension.getURL("/icons/top_logo.png");
+	//img.src = chrome.extension.getURL("/icons/top_logo.png");
+	img.src = chrome.extension.getURL("/icons/wikilogo_new.png");
 	div.appendChild(img);
 	document.body.appendChild(div);
 }
@@ -35,7 +36,8 @@ function set_middle_logo()
 	var div = document.createElement("DIV");
 	div.id = "puzzle_piece_logo_homepage";
 	var img = document.createElement("IMG");
-	img.src = chrome.extension.getURL("/icons/top_logo_homepage.png");
+	//img.src = chrome.extension.getURL("/icons/top_logo_homepage.png");
+	img.src = chrome.extension.getURL("/icons/wikilogo_new.png");
 	div.appendChild(img);
 	document.body.appendChild(div);
 }
