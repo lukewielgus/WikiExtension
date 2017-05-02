@@ -50,7 +50,7 @@ function set_middle_logo()
 	document.body.appendChild(div);
 }
 
-function set_list_elem()
+function set_list_elems()
 {
 	var panel = document.getElementById("mw-panel");
 	var panel_logo = panel.children[0];
@@ -99,6 +99,13 @@ function set_list_elem()
 	console.log("here");
 }
 
+// gets the coordinates for the current article
+function get_article_coords()
+{
+	return;
+}
+
+
 // Used as the callback function for get_url, figures out if we should
 // display the iFrame structure on the current webpage.
 function process_url(url)
@@ -113,7 +120,7 @@ function process_url(url)
 	}
 
 	// set the WikiClassify list elements in the left panel
-	set_list_elem();
+	set_list_elems();
 
 	// create iFrame element to insert later
 	var iFrame = document.createElement("iframe");
@@ -136,6 +143,9 @@ function process_url(url)
 	{
 		return;
 	}
+
+	// get the coordinates of the current article (if they exist)
+	//var coords = get_article_coords();
 
 	// width is set to match the width of the existing box on the article page
 	iFrame.width = "290";

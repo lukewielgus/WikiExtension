@@ -356,7 +356,6 @@ function get_revision_history(article_name)
 	return 0;
 }
 
-
 // get data from our database for current article
 function get_database_entry(article_name,callback)
 {
