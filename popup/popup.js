@@ -24,21 +24,38 @@ function set_top_logo()
 	var div = document.createElement("DIV");
 	div.id = "puzzle_piece_logo";
 	var img = document.createElement("IMG");
-	//img.src = chrome.extension.getURL("/icons/top_logo.png");
 	img.src = chrome.extension.getURL("/icons/wikilogo_new.png");
-	div.appendChild(img);
+	//div.appendChild(img);
+
+	var a = document.createElement("a");
+	a.href = "http://www.wikiclassify.com";
+	a.target = "_blank";
+	a.appendChild(img);
+	div.appendChild(a);
+
 	document.body.appendChild(div);
 }
 
 // places the blue logo on the wikipedia globe on the home page
 function set_middle_logo()
 {
+    /*
+    <a id="top_logo" href="http://www.wikiclassify.com" target="_blank">
+    <img src="logo_lg.png" alt="icon">
+    </a>
+	*/
 	var div = document.createElement("DIV");
 	div.id = "puzzle_piece_logo_homepage";
 	var img = document.createElement("IMG");
-	//img.src = chrome.extension.getURL("/icons/top_logo_homepage.png");
 	img.src = chrome.extension.getURL("/icons/wikilogo_new.png");
-	div.appendChild(img);
+
+	var a = document.createElement("a");
+	a.href = "http://www.wikiclassify.com";
+	a.target = "_blank";
+	a.appendChild(img);
+	div.appendChild(a);
+
+
 	document.body.appendChild(div);
 }
 

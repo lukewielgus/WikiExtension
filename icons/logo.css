@@ -33,6 +33,11 @@
 	}
 }
 
+#puzzle_piece_logo_homepage a{
+	display: flex;
+  	justify-content: center;
+}
+
 #puzzle_piece_logo_homepage img{
 	/*position: fixed;*/
 	/*vertical-align: middle;*/
@@ -62,6 +67,7 @@
 	height: 138px;
 	/*border-right: 100px;*/
 }
+
 
 #puzzle_piece_logo_homepage{
 
