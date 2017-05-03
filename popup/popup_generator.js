@@ -465,7 +465,7 @@ function add_remote_data(data)
 
 	if (quality.indexOf("unknown")==-1)
 	{
-		// directly inserting quality
+		if (quality.indexOf("list")!=-1){  quality="List";  }
 		var quality_line = "<b>Quality</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+String(quality);
 		$(quality_anchor).html("<p id=\"quality_anchor\">"+quality_line+"</p>");
 	}
@@ -555,8 +555,10 @@ function process_url(tablink)
 
 	// get the article name
 	var article = tablink.split("/wiki/")[1];
-	var article_with_spaces = article.replace(/_/g," ");
-	var article_line = "<b>Article</b>  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+article_with_spaces;
+	var article_pretty = article.split("_").join(" ").split("%27").join("\'").split("%E2%80%93").join("-");
+	article_pretty = article_pretty.split("%C3%97").join("x");
+
+	var article_line = "<b>Article</b>  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+article_pretty;
 
 	// add the article title
 	$("body").append("<p>"+article_line+"</p>");
@@ -581,11 +583,9 @@ function process_url(tablink)
 
 	$("body").append("<div class=\"bg-text\">Popularity</div>");
 	
-	var views_arr = make_view_plot(article);
+	var views_arr = make_view_plot(article); // returns array with [avg_daily_views,views_last_week]
 	var avg_daily_views = views_arr[0];
 	var views_last_week = views_arr[1];
-
-	//var avg_daily_views = make_view_plot(article);
 
 	var avg_daily_views_pretty = String(avg_daily_views.toLocaleString('en-US',{minimumFractionDigits: 2})).split(".")[0];
 	var avg_daily_views_line = "<b>Views</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+avg_daily_views_pretty+" / day";
@@ -605,7 +605,7 @@ function process_url(tablink)
 
 	if (revisions_last_week!=0)
 	{
-		var views_per_revision_pretty = String(views_last_week/revisions_last_week).toLocaleString('en-US',{minimumFractionDigits: 2})
+		var views_per_revision_pretty = String(views_last_week/revisions_last_week).toLocaleString('en-US',{minimumFractionDigits: 2}).split(".")[0]
 		var revisions_line = "<b>Views/Revision</b>&nbsp;&nbsp;"+String(views_per_revision_pretty)+" Last Week";
 		$("body").append("<p>"+revisions_line+"</p>");
 	}
