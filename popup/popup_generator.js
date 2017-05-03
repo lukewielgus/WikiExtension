@@ -463,29 +463,29 @@ function add_remote_data(data)
 		related_anchor.parentNode.removeChild(related_anchor);
 	}
 
-	if (quality.indexOf("unknown")==-1)
+	if (String(quality).indexOf("unknown")!=-1)
 	{
-		if (quality.indexOf("list")!=-1){  quality="List";  }
-		var quality_line = "<b>Quality</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+String(quality);
-		$(quality_anchor).html("<p id=\"quality_anchor\">"+quality_line+"</p>");
-	}
-	else
-	{
-		var quality_line = "<b>Quality</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Unknown";
-		$(quality_anchor).html("<p id=\"quality_anchor\">"+quality_line+"</p>");	
+		quality="Unknown";
 	}
 
-	if (importance.indexOf("unknown")==-1)
+	if (quality.indexOf("list")!=-1){  quality="List";  }
+	quality = String(quality).split("\n").join("");
+	quality = quality.split("\t").join("");
+	quality = quality.split("  ").join("");
+	quality = String(quality).split(" ").join("");
+	quality = "<span class=\"chip_color "+String(quality)+" white-text\">"+String(quality)+"</span>";
+	var quality_line = "<b>Quality</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+String(quality);
+	$(quality_anchor).html("<p id=\"quality_anchor\">"+quality_line+"</p>");
+
+
+	if (String(importance).indexOf("unknown")!=-1)
 	{
-		// directly inserting importance
-		var importance_line = "<b>Importance</b> "+String(importance);
-		$(importance_anchor).html("<p id=\"importance_anchor\">"+importance_line+"</p>");
+		importance="Unknown";
 	}
-	else
-	{
-		var importance_line = "<b>Importance</b> Unknown";
-		$(importance_anchor).html("<p id=\"importance_anchor\">"+importance_line+"</p>");	
-	}
+	importance = "<span class=\"chip_color "+String(importance)+" white-text\">"+String(importance)+"</span>";
+	var importance_line = "<b>Importance</b> "+String(importance);
+	$(importance_anchor).html("<p id=\"importance_anchor\">"+importance_line+"</p>");
+
 
 	if (authors.indexOf("NONE")==-1)
 	{
