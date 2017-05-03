@@ -218,6 +218,12 @@ function make_view_plot(article_name)
 	var average_views = total_views/human_traffic_obj.items.length;
 	var len = human_traffic_obj.items.length;
 
+	var views_last_week=0;
+	for (var i=human_traffic_obj.items.length-8; i<human_traffic_obj.items.length; i++)
+	{
+		views_last_week+=human_traffic_obj.items[i].views;
+	}
+
 	// trimming down to 365 days...
 	short_moving_avg.y = short_moving_avg.y.slice(len-366,len-1);
 	short_moving_avg.x = short_moving_avg.x.slice(len-366,len-1);
@@ -310,7 +316,10 @@ function make_view_plot(article_name)
 		layout,
 		{displayModeBar: false}
 	);
-	return average_views;
+
+	var ret_arr = [average_views,views_last_week];
+	return ret_arr;
+	//return average_views;
 }
 
 // gets the number of revisions of this article in past week
@@ -571,7 +580,12 @@ function process_url(tablink)
 	$("body").append("<p id=\"domains_anchor\">"+domains_line);
 
 	$("body").append("<div class=\"bg-text\">Popularity</div>");
-	var avg_daily_views = make_view_plot(article);
+	
+	var views_arr = make_view_plot(article);
+	var avg_daily_views = views_arr[0];
+	var views_last_week = views_arr[1];
+
+	//var avg_daily_views = make_view_plot(article);
 
 	var avg_daily_views_pretty = String(avg_daily_views.toLocaleString('en-US',{minimumFractionDigits: 2})).split(".")[0];
 	var avg_daily_views_line = "<b>Views</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+avg_daily_views_pretty+" / day";
@@ -588,6 +602,13 @@ function process_url(tablink)
 	var revisions_last_week = get_revision_history(article);
 	var revisions_line = "<b>Revisions</b>&nbsp;&nbsp;"+String(revisions_last_week)+" Last Week";
 	$("body").append("<p>"+revisions_line+"</p>");
+
+	if (revisions_last_week!=0)
+	{
+		var views_per_revision_pretty = String(views_last_week/revisions_last_week).toLocaleString('en-US',{minimumFractionDigits: 2})
+		var revisions_line = "<b>Views/Revision</b>&nbsp;&nbsp;"+String(views_per_revision_pretty)+" Last Week";
+		$("body").append("<p>"+revisions_line+"</p>");
+	}
 
 	$("body").append("<hr>");
 
