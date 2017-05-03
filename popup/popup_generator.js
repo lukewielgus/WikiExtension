@@ -417,50 +417,91 @@ function add_remote_data(data)
 	var authors_anchor = document.getElementById("authors_anchor");
 	var category_anchor = document.getElementById("category_anchor");
 
-	// directly inserting related articles 
-	var related_line = "<b>Related Articles</b> "+String(related_articles);
-	$(related_anchor).html("<p id\"related_anchor\">"+related_line);
-
-	// directly inserting quality
-	var quality_line = "<b>Quality</b> "+String(quality);
-	$(quality_anchor).html("<p id=\"quality_anchor\">"+quality_line+"</p>");
-
-	// directly inserting importance
-	var importance_line = "<b>Importance</b> "+String(importance);
-	$(importance_anchor).html("<p id=\"importance_anchor\">"+importance_line+"</p>");
-
-	// Cleaning up authors by replacing "_" with " " and " | " with ","
-	var authors_line = "<b>Cited Authors</b> ";
-	var authors_clean = authors.split("_").join(" ");
-	authors_clean = authors_clean.split(" | ").join(", ");
-	authors_line += authors_clean;
-	$(authors_anchor).html("<p id=\"authors_anchor\">"+authors_line+"</p>");
-
-	// cleaning up domains
-	var domains_line = "<b>Cited Domains</b> ";
-	//var domains_split = domains.split(" | ");
-
-	/*
-	// using a href item for domains to allow for clicking
-	for (var i=0; i<domains_split.length; i++)
+	if (related_articles!="N/A")
 	{
-		var cleaned_domain = domains_split[i].split(" ").join("");
-		domains_line += "<a href=\"https://";
-		domains_line += cleaned_domain+"\">"+domains_split[i];
-		domains_line+="</a>";
-		if (i!=domains_split.length-1){  domains_line += ", ";  }
+		var split_arts = String(related_articles).split("</div></div>");
+
+		for (var y=0; y<split_arts.length; y++)
+		{
+			try
+			{
+				var split_on_href = String(split_arts[y]).split("href=");
+
+				if (split_on_href.length!=2)
+				{
+					split_arts.splice(y,1);
+					continue;
+				}
+
+				var before_href = split_on_href[0];
+				var cur_href = String(split_on_href[1]).split(">")[0];
+				cur_href = cur_href.split("\"").join("");
+
+				var after_href = String(split_on_href[1]).split(">").slice(1).join(">");
+				var new_href = "https://en.wikipedia.org/wiki/"+cur_href;
+				split_arts[y] = before_href+"href=\""+new_href+"\">"+after_href;
+			}
+			catch (err){  continue;  }
+		}
+
+		related_articles = split_arts.join("</div></div>");
+		var related_line = "<b>Related Articles</b> "+String(related_articles);
+		$(related_anchor).html("<p id\"related_anchor\">"+related_line);
 	}
-	*/
-	domains_line+=domains
+	else
+	{
+		// delete location where related articles is displayed
+		related_anchor.parentNode.removeChild(related_anchor);
+	}
 
-	$(domains_anchor).html("<p id=\"domains_anchor\">"+domains_line+"</p>");
+	if (quality.indexOf("unknown")==-1)
+	{
+		// directly inserting quality
+		var quality_line = "<b>Quality</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+String(quality);
+		$(quality_anchor).html("<p id=\"quality_anchor\">"+quality_line+"</p>");
+	}
+	else
+	{
+		var quality_line = "<b>Quality</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Unknown";
+		$(quality_anchor).html("<p id=\"quality_anchor\">"+quality_line+"</p>");	
+	}
 
-	// cleaning up categories the same
-	var categories_line = "<b>Categories</b> ";
-	var categories_clean = categories.split("Category:").join("");
-	categories_clean = categories_clean.split("_").join(" ");
-	categories_clean = categories_clean.split(" | ").join(", ");
-	categories_line += categories_clean;
+	if (importance.indexOf("unknown")==-1)
+	{
+		// directly inserting importance
+		var importance_line = "<b>Importance</b> "+String(importance);
+		$(importance_anchor).html("<p id=\"importance_anchor\">"+importance_line+"</p>");
+	}
+	else
+	{
+		var importance_line = "<b>Importance</b> Unknown";
+		$(importance_anchor).html("<p id=\"importance_anchor\">"+importance_line+"</p>");	
+	}
+
+	if (authors.indexOf("NONE")==-1)
+	{
+		var authors_line = "<b>Cited Authors</b> "+authors;
+		$(authors_anchor).html("<p id=\"authors_anchor\">"+authors_line+"</p>");
+	}
+	else
+	{
+		var authors_line = "<b>Cited Authors</b> &nbsp;No Cited Authors";
+		$(authors_anchor).html("<p id=\"authors_anchor\">"+authors_line+"</p>");
+	}
+
+	if (domains.indexOf("NONE")==-1)
+	{
+		var domains_line = "<b>Cited Domains</b> "+domains;
+		$(domains_anchor).html("<p id=\"domains_anchor\">"+domains_line+"</p>");
+	}
+	else
+	{
+		var domains_line = "<b>Cited Domains</b> No Cited Domains";
+		$(domains_anchor).html("<p id=\"domains_anchor\">"+domains_line+"</p>");
+	}
+
+	// inserting categories
+	var categories_line = "<b>Categories</b> "+categories;
 	$(category_anchor).html("<p id=\"category_anchor\">"+categories_line+"</p>");
 }
 
@@ -506,7 +547,7 @@ function process_url(tablink)
 	// get the article name
 	var article = tablink.split("/wiki/")[1];
 	var article_with_spaces = article.replace(/_/g," ");
-	var article_line = "<b>Article</b>  "+article_with_spaces;
+	var article_line = "<b>Article</b>  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+article_with_spaces;
 
 	// add the article title
 	$("body").append("<p>"+article_line+"</p>");
@@ -522,7 +563,6 @@ function process_url(tablink)
 
 	var categories_line = "<b>Categories</b> ...";
 	$("body").append("<p id=\"category_anchor\">"+categories_line);
-
 
 	var authors_line = "<b>Cited Authors</b> ...";
 	$("body").append("<p id=\"authors_anchor\">"+authors_line+"</p>");
