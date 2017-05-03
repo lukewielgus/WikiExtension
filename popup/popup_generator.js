@@ -555,6 +555,8 @@ function process_url(tablink)
 
 	// get the article name
 	var article = tablink.split("/wiki/")[1];
+	article = article.split("#")[0]; // remove extra in url specifying part of page to load to
+
 	var article_pretty = article.split("_").join(" ").split("%27").join("\'").split("%E2%80%93").join("-");
 	article_pretty = article_pretty.split("%C3%97").join("x").split("%26").join("&");
 
