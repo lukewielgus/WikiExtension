@@ -476,7 +476,7 @@ function add_remote_data(data)
 	quality = quality.split("  ").join("");
 	quality = String(quality).split(" ").join("");
 	quality = "<span class=\"chip_color "+String(quality)+" white-text\">"+String(quality)+"</span>";
-	var quality_line = "<b>Quality</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+String(quality);
+	var quality_line = "<b>Quality</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+String(quality);
 	$(quality_anchor).html("<p id=\"quality_anchor\">"+quality_line+"</p>");
 
 
@@ -495,18 +495,6 @@ function add_remote_data(data)
 	var authors_line = authors;
 	$(authors_anchor).html("<p id=\"authors_anchor\">"+authors_line+"</p>");
 
-	/*
-	if (authors.indexOf("NONE")==-1)
-	{
-		var authors_line = "<b>Cited Authors</b> "+authors;
-		$(authors_anchor).html("<p id=\"authors_anchor\">"+authors_line+"</p>");
-	}
-	else
-	{
-		var authors_line = "<b>Cited Authors</b> &nbsp;No Cited Authors";
-		$(authors_anchor).html("<p id=\"authors_anchor\">"+authors_line+"</p>");
-	}
-	*/
 
 	if (domains.indexOf("NONE")!=-1)
 	{
@@ -515,8 +503,6 @@ function add_remote_data(data)
 	var domains_line = domains;
 	$(domains_anchor).html("<p id=\"domains_anchor\">"+domains_line+"</p>");
 
-	// inserting categories
-	//var categories_line = "<b>Categories</b> "+categories;
 	var categories_line = categories;
 	$(category_anchor).html("<p id=\"category_anchor\">"+categories_line+"</p>");
 }
@@ -559,29 +545,21 @@ function process_url(tablink)
 	article_pretty = article_pretty.split("%C3%97").join("x").split("%26").join("&");
 
 	var article_line = "<b>Article</b>  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+article_pretty;
+	$("body").append("<p>"+article_line+"</p>"); // title
+	$("body").append("<p id=\"quality_anchor\"><b>Quality</b> ...</p>"); // insert point for when get_remote_data() is called
+	$("body").append("<p id=\"importance_anchor\"><b>Importance</b> ...</p>"); // insert point for when get_remote_data() is called
+	$("body").append("<p id=\"related_anchor\"><b>Related Articles</b> ...</p>"); // insert point for when get_remote_data() is called
 
-	// add the article title
-	$("body").append("<p>"+article_line+"</p>");
-
-	var quality_line = "<b>Quality</b> ...";
-	$("body").append("<p id=\"quality_anchor\">"+quality_line+"</p>");
-
-	var importance_line = "<b>Importance</b> ...";
-	$("body").append("<p id=\"importance_anchor\">"+importance_line+"</p>");
-
-	var related_articles_line = "<b>Related Articles</b> ...";
-	$("body").append("<p id=\"related_anchor\">"+related_articles_line+"</p>");
-
-
+	// categories slider
 	var categories_container = "<div><p class=\"category_expander\"><b>Categories </b>";
 	categories_container += "<img src=\"drop_down_logo.png\" width=\"30\" height=\"20\" align=\"right\"/></p>";
 	categories_container += "<p id=\"category_anchor\" class=\"category_content\"> ...</p></div>";
 	$("body").append(categories_container);
-	//var categories_line = "<b>Categories</b> ...";
 	$('.category_expander').click(function(){
 		$('.category_content').slideToggle('slow');
 	});
 
+	// authors slider
 	var authors_container = "<div><p class=\"authors_expander\"><b>Cited Authors</b>";
 	authors_container += "<img src=\"drop_down_logo.png\" width=\"30\" height=\"20\" align=\"right\"/></p>";
 	authors_container += "<p id=\"authors_anchor\" class=\"authors_content\"> ...</p></div>";
@@ -590,6 +568,7 @@ function process_url(tablink)
 		$('.authors_content').slideToggle('slow');
 	});
 
+	// domains slider
 	var domains_container = "<div><p class=\"domains_expander\"><b>Cited Domains</b>";
 	domains_container += "<img src=\"drop_down_logo.png\" width=\"30\" height=\"20\" align=\"right\"/></p>";
 	domains_container += "<p id=\"domains_anchor\" class=\"domains_content\"> ...</p></div>";

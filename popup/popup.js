@@ -25,12 +25,14 @@ function set_top_logo()
 	div.id = "puzzle_piece_logo";
 	var img = document.createElement("IMG");
 	img.src = chrome.extension.getURL("/icons/wikilogo_new.png");
-
+	div.appendChild(img);
+	/*
 	var a = document.createElement("a");
 	a.href = "http://www.wikiclassify.com";
 	a.target = "_blank";
 	a.appendChild(img);
 	div.appendChild(a);
+	*/
 	document.body.appendChild(div);
 }
 
@@ -41,12 +43,15 @@ function set_middle_logo()
 	div.id = "puzzle_piece_logo_homepage";
 	var img = document.createElement("IMG");
 	img.src = chrome.extension.getURL("/icons/wikilogo_new.png");
+	div.appendChild(img);
 
+	/*
 	var a = document.createElement("a");
 	a.href = "http://www.wikiclassify.com";
 	a.target = "_blank";
 	a.appendChild(img);
 	div.appendChild(a);
+	*/
 	document.body.appendChild(div);
 }
 
@@ -195,94 +200,10 @@ function process_url(url)
 
 	add_sizing_elems();
 
-	while(true)
-	{
-		try
-		{
-			var mw_content_text = document.getElementById("mw-content-text");
-
-			// initialize this value to -1 before loop, if we don't find a suitable
-			// insert location among the children of mw-content-text we will know because
-			// this value will still be -1
-			var insert_spot = -1;
-
-			// iterate over all children of mw-content-text portion of html
-			for(var i=0; i<mw_content_text.children.length; i++)
-			{
-				// get the classname of the current child
-				var current = mw_content_text.children[i].className;
-
-				// check if the current item pertains to where we want to insert the iFrame above...
-				if (current == "infobox vcard")
-				{
-					insert_spot = mw_content_text.children[i];
-					break;
-				}
-				if (current == "infobox vevent")
-				{
-					insert_spot = mw_content_text.children[i];
-					break;
-				}
-				if (current == "toc")
-				{
-					insert_spot = mw_content_text.children[i];
-					break;
-				}
-
-				if (current.indexOf("infobox")!=-1)
-				{
-					insert_spot = mw_content_text.children[i];
-					break;
-				}
-
-				if (current.indexOf("vertical-navbox")!=-1)
-				{
-					insert_spot = mw_content_text.children[i];
-					break;
-				}
-
-				if (current == "thumb tright")
-				{
-					insert_spot = mw_content_text.children[i];
-					break;
-				}
-
-				if (current == "hatnote")
-				{
-					insert_spot = mw_content_text.children[i+1];
-					break;
-				}
-
-				console.log(current.tag);
-			}
-			break;
-		}
-		catch(err)
-		{
-			break;
-			continue;
-		}
-	}
-
 	var insert_parent = document.getElementById("mw-content-text");
+	var insert_spot = insert_parent.childNodes[0];
+	insert_parent.insertBefore(iframe_container,insert_spot);
 
-	if (insert_spot==-1)
-	{
-		var y = document.getElementsByTagName("p");
-		console.log(y[0]);
-		insert_spot = y[0];
-		//insert_parent.insertBefore(iFrame,insert_spot);
-		insert_parent.insertBefore(iframe_container,insert_spot);
-		return;
-	}
-
-	else
-	{
-		insert_parent = insert_spot.parentElement;
-		//insert_parent.insertBefore(iFrame,insert_spot);
-		insert_parent.insertBefore(iframe_container,insert_spot);
-		return;
-	}
 }
 
 // Call get_url function with the process_url function being called
