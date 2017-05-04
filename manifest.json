@@ -8,7 +8,7 @@
                                 "icons/top_logo_2.png","js/highlighter.js",
                                 "js/20k_most_common-content.txt","js/20k_most_common-content2.txt",
                                 "js/20k_most_common-importance.txt","icons/top_logo_homepage.png",
-                                "icons/wikilogo_new.png"],
+                                "icons/wikilogo_new.png","popup/drop_down_logo.png"],
 
   "description": "Highlight text based on classifications",
 

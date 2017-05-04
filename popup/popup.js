@@ -189,7 +189,7 @@ function process_url(url)
 	//var coords = get_article_coords();
 
 	// width is set to match the width of the existing box on the article page
-	iFrame.width = "290";
+	iFrame.width = "300";
 	iFrame.height = "650";
 	iFrame.align = "right";
 

@@ -446,7 +446,8 @@ function add_remote_data(data)
 				var before_href = split_on_href[0];
 				var cur_href = String(split_on_href[1]).split(">")[0];
 				cur_href = cur_href.split("\"").join("");
-
+				//cur_href = String(cur_href).split("&squot").join("\'");
+				cur_href = cur_href.replace("&squot","\'");
 				var after_href = String(split_on_href[1]).split(">").slice(1).join(">");
 				var new_href = "https://en.wikipedia.org/wiki/"+cur_href;
 				split_arts[y] = before_href+"href=\""+new_href+"\">"+after_href;
@@ -487,7 +488,14 @@ function add_remote_data(data)
 	var importance_line = "<b>Importance</b> "+String(importance);
 	$(importance_anchor).html("<p id=\"importance_anchor\">"+importance_line+"</p>");
 
+	if (authors.indexOf("NONE")!=-1)
+	{
+		authors = "<div class=\"chip\"><div class=\"black-text\">No Cited Authors</div></div>";
+	}
+	var authors_line = authors;
+	$(authors_anchor).html("<p id=\"authors_anchor\">"+authors_line+"</p>");
 
+	/*
 	if (authors.indexOf("NONE")==-1)
 	{
 		var authors_line = "<b>Cited Authors</b> "+authors;
@@ -498,20 +506,18 @@ function add_remote_data(data)
 		var authors_line = "<b>Cited Authors</b> &nbsp;No Cited Authors";
 		$(authors_anchor).html("<p id=\"authors_anchor\">"+authors_line+"</p>");
 	}
+	*/
 
-	if (domains.indexOf("NONE")==-1)
+	if (domains.indexOf("NONE")!=-1)
 	{
-		var domains_line = "<b>Cited Domains</b> "+domains;
-		$(domains_anchor).html("<p id=\"domains_anchor\">"+domains_line+"</p>");
+		domains = "<div class=\"chip\"><div class=\"black-text\">No Cited Domains</div></div>";
 	}
-	else
-	{
-		var domains_line = "<b>Cited Domains</b> No Cited Domains";
-		$(domains_anchor).html("<p id=\"domains_anchor\">"+domains_line+"</p>");
-	}
+	var domains_line = domains;
+	$(domains_anchor).html("<p id=\"domains_anchor\">"+domains_line+"</p>");
 
 	// inserting categories
-	var categories_line = "<b>Categories</b> "+categories;
+	//var categories_line = "<b>Categories</b> "+categories;
+	var categories_line = categories;
 	$(category_anchor).html("<p id=\"category_anchor\">"+categories_line+"</p>");
 }
 
@@ -523,15 +529,6 @@ function get_url(callback)
 	{
 		callback(String(response.data));
 	});
-}
-
-function expand_frame_listener()
-{
-	//$("wiki_frame").addClass("expanded");
-	//$("body").height = 100;
-	//window.parent.document.getElementById("wiki_frame").height=50;
-	$("#wiki_frame").height=50;
-	//$("body").append("<p>clicked</p>");
 }
 
 function process_url(tablink)
@@ -548,7 +545,7 @@ function process_url(tablink)
 	var after_slash = tablink.split(".org/wiki/")[1];
 	var logo_anchor = document.getElementById("top_logo");
 	var logo_string = "<a id=\"top_logo\" href=\"http://www.wikiclassify.com/articles/"+after_slash+"\", target=\"_blank\">";
-	logo_string+="<img src=\"logo_lg.png\" alt=\"icon\">"
+	logo_string+="<img class=\"frame_logo\" src=\"logo_lg.png\" alt=\"icon\">"
 	$(logo_anchor).html(logo_string);
 
 	//$("body").append("<hr>");
@@ -575,14 +572,32 @@ function process_url(tablink)
 	var related_articles_line = "<b>Related Articles</b> ...";
 	$("body").append("<p id=\"related_anchor\">"+related_articles_line+"</p>");
 
-	var categories_line = "<b>Categories</b> ...";
-	$("body").append("<p id=\"category_anchor\">"+categories_line);
 
-	var authors_line = "<b>Cited Authors</b> ...";
-	$("body").append("<p id=\"authors_anchor\">"+authors_line+"</p>");
+	var categories_container = "<div><p class=\"category_expander\"><b>Categories </b>";
+	categories_container += "<img src=\"drop_down_logo.png\" width=\"30\" height=\"20\" align=\"right\"/></p>";
+	categories_container += "<p id=\"category_anchor\" class=\"category_content\"> ...</p></div>";
+	$("body").append(categories_container);
+	//var categories_line = "<b>Categories</b> ...";
+	$('.category_expander').click(function(){
+		$('.category_content').slideToggle('slow');
+	});
 
-	var domains_line = "<b>Cited Domains</b> ...";
-	$("body").append("<p id=\"domains_anchor\">"+domains_line);
+	var authors_container = "<div><p class=\"authors_expander\"><b>Cited Authors</b>";
+	authors_container += "<img src=\"drop_down_logo.png\" width=\"30\" height=\"20\" align=\"right\"/></p>";
+	authors_container += "<p id=\"authors_anchor\" class=\"authors_content\"> ...</p></div>";
+	$("body").append(authors_container);
+	$('.authors_expander').click(function(){
+		$('.authors_content').slideToggle('slow');
+	});
+
+	var domains_container = "<div><p class=\"domains_expander\"><b>Cited Domains</b>";
+	domains_container += "<img src=\"drop_down_logo.png\" width=\"30\" height=\"20\" align=\"right\"/></p>";
+	domains_container += "<p id=\"domains_anchor\" class=\"domains_content\"> ...</p></div>";
+	$("body").append(domains_container);
+	$('.domains_expander').click(function(){
+		$('.domains_content').slideToggle('slow');
+	});
+
 
 	$("body").append("<div class=\"bg-text\">Popularity</div>");
 	
@@ -644,3 +659,4 @@ function process_url(tablink)
 function jQueryMain () {
 	get_url(process_url);
 }
+
