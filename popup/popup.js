@@ -130,13 +130,13 @@ function add_sizing_elems()
 	expand_link.onclick = function()
 	{
 		document.getElementById("wiki_frame").style.display = '';
-		document.getElementById("wiki_frame").height=600;
+		document.getElementById("wiki_frame").height=670;
 	}
 
 	collapse_link.onclick = function()
 	{
 		document.getElementById("wiki_frame").style.display = '';
-		document.getElementById("wiki_frame").height=300;
+		document.getElementById("wiki_frame").height=200;
 	}
 
 	expand_elem_entry.appendChild(expand_link);
@@ -154,7 +154,6 @@ function add_sizing_elems()
 		document.getElementById("wiki_frame").style.display = 'none';
 	}
 	hide_elem_entry.appendChild(hide_link);
-
 }
 
 
@@ -210,7 +209,7 @@ function process_url(url)
 
 	// width is set to match the width of the existing box on the article page
 	iFrame.width = "300";
-	iFrame.height = "600";
+	iFrame.height = "670";
 	iFrame.align = "right";
 
 	add_sizing_elems();
