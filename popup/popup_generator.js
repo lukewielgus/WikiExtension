@@ -369,7 +369,7 @@ function get_revision_history(article_name)
 function get_database_entry(article_name,callback)
 {
 	article_name = String(article_name).split("%27").join("&squot"); // listed on database with &squot in name
-	var url = "http://wikiclassify-env.juq3um3kg2.us-east-1.elasticbeanstalk.com/articles/"+article_name;
+	var url = "http://www.wikiclassify.com/articles/"+article_name;
 	chrome.runtime.sendMessage({func: "get_remote_data", url: url}, function(response)
 	{
 		callback(String(response.data));
