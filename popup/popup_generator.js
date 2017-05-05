@@ -465,7 +465,7 @@ function add_remote_data(data)
 		related_anchor.parentNode.removeChild(related_anchor);
 	}
 
-	if (String(quality).indexOf("unknown")!=-1)
+	if (String(quality).indexOf("unknown")!=-1 || String(quality).indexOf("N/A")!=-1)
 	{
 		quality="Unknown";
 	}
@@ -480,7 +480,7 @@ function add_remote_data(data)
 	$(quality_anchor).html("<p id=\"quality_anchor\">"+quality_line+"</p>");
 
 
-	if (String(importance).indexOf("unknown")!=-1)
+	if (String(importance).indexOf("unknown")!=-1 || String(importance).indexOf("N/A")!=-1)
 	{
 		importance="Unknown";
 	}
@@ -542,6 +542,10 @@ function process_url(tablink)
 	article = article.split("#")[0]; // remove extra in url specifying part of page to load to
 
 	var article_pretty = article.split("_").join(" ").split("%27").join("\'").split("%E2%80%93").join("-");
+	article_pretty = article_pretty.split("%C3%AD").join("í");
+	article_pretty = article_pretty.split("%C3%A1").join("á");
+	article_pretty = article_pretty.split("%C3%B8").join("ø");
+
 	article_pretty = article_pretty.split("%C3%97").join("x").split("%26").join("&");
 
 	var article_line = "<b>Article</b>  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+article_pretty;
@@ -592,7 +596,7 @@ function process_url(tablink)
 	var rank = get_view_ranking(article);
 	if (rank!=-1)
 	{
-		var trending_line = "<b>Trending</b> #"+String(rank)+" yesterday";
+		var trending_line = "<b>Trending</b> &nbsp;#"+String(rank)+" Yesterday";
 		$("body").append("<p>"+trending_line+"</p>");
 	}
 
@@ -602,7 +606,7 @@ function process_url(tablink)
 
 	if (revisions_last_week!=0)
 	{
-		var views_per_revision_pretty = String(views_last_week/revisions_last_week).toLocaleString('en-US',{minimumFractionDigits: 2}).split(".")[0]
+		var views_per_revision_pretty = String((views_last_week/revisions_last_week).toLocaleString('en-US',{minimumFractionDigits: 2})).split(".")[0]
 		var revisions_line = "<b>Views/Revision</b>&nbsp;&nbsp;"+String(views_per_revision_pretty)+" Last Week";
 		$("body").append("<p>"+revisions_line+"</p>");
 	}

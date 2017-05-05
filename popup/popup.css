@@ -61,11 +61,11 @@ h2 span
 .chip_color
 {
     display: inline-block;
-    height: 16px;
+    height: 12px;
     font-size: 12px;
     font-weight: 500;
-    line-height: 16px;
-    padding: 8px;
+    line-height: 12px;
+    padding: 10px;
     border-radius: 16px;
     margin-bottom: 0px;
     margin-right: 0px;
