@@ -487,6 +487,13 @@ function add_remote_data(data)
 		source_quality="Unknown";
 	}
 	source_quality = String(source_quality).split("\n").join("").split("\t").join("").split("  ").join("").split(" ").join("");
+
+	// check if we have a source quality listing, if not, remove the spot where we show it
+	if (source_quality=="" || source_quality==" ")
+	{
+		source_quality_anchor.parentNode.removeChild(source_quality_anchor);
+	}
+
 	source_quality = "<span class=\"chip_color "+String(source_quality)+" white-text\">"+String(source_quality)+"</span>";
 	var source_quality_line = "<b>Link Quality</b> "+String(source_quality);
 	$(source_quality_anchor).html("<p id=\"source_quality_anchor\">"+source_quality_line+"</p>");
@@ -546,6 +553,7 @@ function process_url(tablink)
 	article_pretty = article_pretty.split("%C3%AD").join("í");
 	article_pretty = article_pretty.split("%C3%A1").join("á");
 	article_pretty = article_pretty.split("%C3%B8").join("ø");
+	article_pretty = article_pretty.split("%C3%A9").join("é");
 
 	article_pretty = article_pretty.split("%C3%97").join("x").split("%26").join("&");
 
