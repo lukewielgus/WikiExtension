@@ -383,8 +383,10 @@ function add_remote_data(data)
 	var htmlDoc = parser.parseFromString(data,"text/html");
 
 	var scores = htmlDoc.getElementsByTagName("td");
-	var importance = scores[1].innerText;
-	var quality = scores[2].innerText;
+
+	var importance 		= scores[1].innerText;
+	var quality 		= scores[2].innerText;
+	var source_quality 	= scores[3].innerText;
 
 	var rest = htmlDoc.getElementsByTagName("h4");
 
@@ -397,21 +399,17 @@ function add_remote_data(data)
 
 	for (var q=0; q<rest.length; q++)
 	{
-		//$("body").append("<p>"+rest[q].textContent+"</p>");
 		if (rest[q].textContent=="Categories")
 		{
-			//categories = rest[q].nextSibling.nextSibling.innerText;
 			categories = rest[q].nextSibling.nextSibling.innerHTML;
 		}
 		if (rest[q].textContent=="Cited Domains")
 		{
-			domains  =rest[q].nextSibling.nextSibling.innerHTML;
-			//domains = rest[q].nextSibling.nextSibling.innerText;//.split("  ").join(" | ");
+			domains = rest[q].nextSibling.nextSibling.innerHTML;
 		}
 		if (rest[q].textContent=="Cited Authors")
 		{
 			authors = rest[q].nextSibling.nextSibling.innerHTML;
-			//authors = rest[q].nextSibling.nextSibling.innerText;//.split("  ").join(" | ");
 		}
 		if (rest[q].textContent=="Closest Articles")
 		{
@@ -420,12 +418,13 @@ function add_remote_data(data)
 	}
 
 	// getting handles to prior defined insertion locations (defined in process_url)
-	var related_anchor = document.getElementById("related_anchor");
-	var quality_anchor = document.getElementById("quality_anchor");
-	var importance_anchor = document.getElementById("importance_anchor");
-	var domains_anchor = document.getElementById("domains_anchor");
-	var authors_anchor = document.getElementById("authors_anchor");
-	var category_anchor = document.getElementById("category_anchor");
+	var related_anchor 			= document.getElementById("related_anchor");
+	var quality_anchor 			= document.getElementById("quality_anchor");
+	var importance_anchor 		= document.getElementById("importance_anchor");
+	var source_quality_anchor 	= document.getElementById("source_quality_anchor");
+	var domains_anchor 			= document.getElementById("domains_anchor");
+	var authors_anchor 			= document.getElementById("authors_anchor");
+	var category_anchor 		= document.getElementById("category_anchor");
 
 	if (related_articles!="N/A")
 	{
@@ -469,16 +468,11 @@ function add_remote_data(data)
 	{
 		quality="Unknown";
 	}
-
 	if (quality.indexOf("list")!=-1){  quality="List";  }
-	quality = String(quality).split("\n").join("");
-	quality = quality.split("\t").join("");
-	quality = quality.split("  ").join("");
-	quality = String(quality).split(" ").join("");
+	quality = String(quality).split("\n").join("").split("\t").join("").split("  ").join("").split(" ").join("");
 	quality = "<span class=\"chip_color "+String(quality)+" white-text\">"+String(quality)+"</span>";
 	var quality_line = "<b>Quality</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+String(quality);
 	$(quality_anchor).html("<p id=\"quality_anchor\">"+quality_line+"</p>");
-
 
 	if (String(importance).indexOf("unknown")!=-1 || String(importance).indexOf("N/A")!=-1)
 	{
@@ -487,6 +481,15 @@ function add_remote_data(data)
 	importance = "<span class=\"chip_color "+String(importance)+" white-text\">"+String(importance)+"</span>";
 	var importance_line = "<b>Importance</b> "+String(importance);
 	$(importance_anchor).html("<p id=\"importance_anchor\">"+importance_line+"</p>");
+
+	if (String(source_quality).indexOf("unknown")!=-1 || String(source_quality).indexOf("N/A")!=-1)
+	{
+		source_quality="Unknown";
+	}
+	source_quality = String(source_quality).split("\n").join("").split("\t").join("").split("  ").join("").split(" ").join("");
+	source_quality = "<span class=\"chip_color "+String(source_quality)+" white-text\">"+String(source_quality)+"</span>";
+	var source_quality_line = "<b>Link Quality</b> "+String(source_quality);
+	$(source_quality_anchor).html("<p id=\"source_quality_anchor\">"+source_quality_line+"</p>");
 
 	if (authors.indexOf("NONE")!=-1)
 	{
@@ -525,10 +528,8 @@ function process_url(tablink)
 		return;
 	}
 
-	//expander.addEventListener("click",expand_frame_listener);
-	//expander.onclick = expand_frame_listener;
-
 	var after_slash = tablink.split(".org/wiki/")[1];
+	after_slash = after_slash.split("%27").join("&squot");
 	var logo_anchor = document.getElementById("top_logo");
 	var logo_string = "<a id=\"top_logo\" href=\"http://www.wikiclassify.com/articles/"+after_slash+"\", target=\"_blank\">";
 	logo_string+="<img class=\"frame_logo\" src=\"logo_lg.png\" alt=\"icon\">"
@@ -552,6 +553,7 @@ function process_url(tablink)
 	$("body").append("<p>"+article_line+"</p>"); // title
 	$("body").append("<p id=\"quality_anchor\"><b>Quality</b> ...</p>"); // insert point for when get_remote_data() is called
 	$("body").append("<p id=\"importance_anchor\"><b>Importance</b> ...</p>"); // insert point for when get_remote_data() is called
+	$("body").append("<p id=\"source_quality_anchor\"><b>Link Quality</b> ...</p>"); // insert point for when get_remote_data() is called
 	$("body").append("<p id=\"related_anchor\"><b>Related Articles</b> ...</p>"); // insert point for when get_remote_data() is called
 
 	// categories slider
