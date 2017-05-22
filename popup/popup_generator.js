@@ -554,7 +554,6 @@ function process_url(tablink)
 	article_pretty = article_pretty.split("%C3%A1").join("á");
 	article_pretty = article_pretty.split("%C3%B8").join("ø");
 	article_pretty = article_pretty.split("%C3%A9").join("é");
-
 	article_pretty = article_pretty.split("%C3%97").join("x").split("%26").join("&");
 
 	var article_line = "<b>Article</b>  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+article_pretty;

@@ -96,7 +96,16 @@ function set_list_elems()
 
 	var panel_trending_link = document.createElement("a");
 	panel_trending_entry.appendChild(panel_trending_link);
+	
+	// implementation where it would open a page on our website
+	/*
 	panel_trending_link.href = "http://www.wikiclassify.com/trending";
+	panel_trending_link.target = "_blank";
+	panel_trending_link.innerText = "Trending Articles";
+	*/
+	// implementation where we open a local html file with trending articles
+	//panel_trending_link.href = "popup/popular_articles.html";
+	panel_trending_link.href = chrome.extension.getURL("popup/popular_articles.html");
 	panel_trending_link.target = "_blank";
 	panel_trending_link.innerText = "Trending Articles";
 
