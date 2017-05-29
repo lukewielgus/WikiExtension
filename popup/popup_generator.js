@@ -620,6 +620,7 @@ function process_url(tablink)
 		$("body").append("<p>"+revisions_line+"</p>");
 	}
 
+	/*
 	$("body").append("<hr>");
 
 	// see the top of file for mapping names and colors
@@ -643,6 +644,7 @@ function process_url(tablink)
 		}
 	}
 	if (cat_s!=""){  $("body").append("<p>"+cat_s+"</p>");  }
+	*/
 
 	// add data from our server	get_database_entry(article,add_remote_data);
 	get_database_entry(article,add_remote_data);
